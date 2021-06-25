@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; text/html; charset=UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+<title>Untitled Document</title>
+<style>
+
+body{
+  margin: 0;
+}
+
+body {
+  margin: 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 25%;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+li a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+li a:hover:not(.active) {
+ background-color: #555;
+  color: white;
+}
+
+
+
+</style>
+</head>
+<body>
+  
+  
+<ul>
+ <li><a class="active" href="admin">Home</a></li>
+ <li> <a href="adminspares">SPARES</a></li>
+  <li><a href="admintechnicians"> TECHNICIANS</a></li>
+  <li><a href="admincustomers">CUSTOMERS</a></li>
+ <li><a  href="adminsupervisors">supervisors</a></li>
+  </ul>
+  
+<div class="container" style="margin-left:25%;padding:1px 16px;height:1000px;">
+  <div class="container">
+  
+  <div>
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="adminpagesacreateacc">Create technitian</a>
+  </div>
+</nav>
+</div> <br>
+  
+  <h1>Your welcome to the admins dashboard</h1>
+<h1>the session is <%= locals.sessionid ? sessionid : '' %> </h1>
+
+</div>
+</div>
+</body>
+  
+</html>

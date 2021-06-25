@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container">
+<h1>hello your welcome</h1>
+<h2>this is the land where admins create there accounts from</h2>
+    <h3>CREATE ACCOUNT</h3>
+    
+        <div class="alert alert-primary" role="alert">
+  <p> <%= locals.message ? message : 'welcome'%></p>
+</div>
+    <br>
+ <div>
+ <form method="post" action="admincacc">
+<div class="form-group">
+    <label for="username1">enter email or a username</label>
+    <input name="username" type="text" class="form-control" placeholder="enter a username or an email">
+  </div>
+   <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+   <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input name="cpassword" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-primary">Create Admin</button>
+</form>
+       <br><br>
+      
+     <div>
+        <a href="adminhome"> Back To Home</a>
+        </div>
+    
+      </div>
+    
+    </div>
+  </body>
+  
+</html>

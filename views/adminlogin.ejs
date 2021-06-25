@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title></title>
+  </head>
+  <body>
+    <div class="container">
+    <h1>hello your welcome</h1>
+    <h3>login</h3>
+    <br>
+       
+       <div class="alert alert-primary" role="alert">
+  <p> <%= locals.message ? message : 'welcome'%></p>
+</div>
+
+       <div class="container">
+<form method="post" action="adminloginpost">
+  <div class="form-group">
+    <label >ENTER YOUR EMAIL/USERNAME</label>
+    <input type="text" class="form-control" name="username"  placeholder="Enter email/username">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="enter Password">
+  </div>
+  <button type="submit" class="btn btn-primary">login</button>
+</form>
+</div>
+
+       
+       
+       
+       
+       
+       <!-- this isnt supposed to be there but just for testing-->
+     <div>
+       <p>note the link below isnt supposed to be there but just for testing</p>
+        <a href="admin">ADMIN DASHBORD</a>
+         </div>
+       <!-- end -->
+       </div>
+  </body>
+  
+</html>
