@@ -160,7 +160,7 @@ if (!account || !bcrypt.compareSync(password, account.passwordHash)) {
 });
  */
     
-    
+    /*
     const hashedpassword = bcrypt.hash("bloody",10)
     
     const hashedfunction = async (hash)=>{ 
@@ -185,3 +185,10 @@ const compare = bcrypt.compare("bloody", id)
     console.log("am done comparimg")
     }
     comparepassword (compare)
+*/
+
+var {v4:uuidv4} = require("uuid")
+for(var x = 0; x < 10; x++){
+	console.log(x)
+console.log(uuidv4())
+ }

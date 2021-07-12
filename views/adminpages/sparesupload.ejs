@@ -120,13 +120,13 @@
             <div class="list-group list-group-flush my-3">
                 <a href="adminhome" class="list-group-item list-group-item-action bg-transparent second-text active"><i
                         class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
-                <a href="adminpagesspares" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="adminspares"   style="background:green;"  class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Manage Spares</a>
-                <a href="adminpagestechnicians" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="admintechnicians" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Manage Technicians</a>
-                <a href="adminpagescustomers" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="admincustomers" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Manage customers</a>
-                <a href="adminpagessupervisors" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="adminsupervisors" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Manage Supervisors</a>
              
                 <a href="#" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
@@ -170,17 +170,69 @@
              
 
    <div class="row my-5">
-<h3 class="fs-4 mb-3">Recent Orders</h3>
-  <div>
-<nav class="navbar navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="adminpagesacreateacc">Create Admin</a>
+     
+     
+     
+     
+  <div class="container">
+<h1>hello your welcome</h1>
+<h2>this is the land where Admins upload spares from</h2>
+    <h3>Update spare inventory </h3>
+    <br>
+    <div class="alert alert-primary" role="alert">
+  <p> <%= locals.message ? message : 'welcome'%></p>
+</div>
+<br>
+ <div>
+ <form method="post" action="uploadspare">
+ 
+   <div class="form-group">
+  <label>select branch</label>
+ <select id="selectlevel" name="branchid" class="form-select" >
+  <option value="8e700223-60c7-423d-9032-fc02bd38082d">mtn shoprite clock tower</option>
+  <option value="af53ff22-45ec-4c45-82a6-7a8dd2f3b479">mtn kampala road</option>
+  <option value="02778e1c-bdc4-4e95-a884-a66438931c95">mtn crested tower</option>
+    <option value="16c770c8-3953-49d7-820f-16b9ccc05a5f">mtn village mall</option>
+      <option value="a6da75f6-41bc-4190-aa8b-d9960246328b">mtn victoria mall entebbe</option>
+        <option value="f7ccd3a4-b8bf-46f9-8366-bed2a99e6bc0">mtn mbale</option>
+          <option value="19c23521-feb3-4c8c-b87e-66daa787f798">mtn moroto</option>
+            <option value="2a7bdf58-b33e-4644-bc3f-a30328d23822">mtn mbarara</option>
+              <option value="1fba1fb5-69a2-4188-8034-9440f88b1013">mtn fortportal</option>
+                <option value="5fda81a0-a87c-4eb5-89fa-d862fe5a5079">mtn masaka</option>
+</select><br>
+ </div>
+  
+ <div class="form-group">
+    <label for="username1">enter spare name</label>
+    <input name="sparename" type="text" class="form-control" placeholder="enter spare name">
   </div>
-</nav>
-</div> <br>
-  <h1>Hello  <%= rows[0].adminusername%> </h1>
-  <h3>Your welcome to the admins dashboard</h3>
-<h4> feel free to tour the Admin panel </h4>
+<div class="form-group">
+    <label for="username1">enter spare amount</label>
+    <input name="spareamount" type="number" class="form-control" placeholder="enter spare amount">
+  </div>
+  <div class="form-group">
+    <label for="username1">enter spare tax</label>
+    <input name="sparetax" type="text" class="form-control" placeholder="enter spare tax">
+  </div>
+  <div class="form-group">
+    <label for="username1">enter spare price</label>
+    <input name="spareprice" type="number" class="form-control" placeholder="enter spare price">
+  </div>
+<br>
+  <button type="submit" class="btn btn-primary">upload spare</button>
+</form>
+       <br><br>
+      
+   
+    
+      </div>
+    
+    </div>
+
+
+
+
+
                 
                 </div>
 

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+ <head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Sidebar menu With Sub-menus | Using HTML, CSS & JQuery</title>
+ <!--  <link rel="stylesheet" href="style.css"> -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+  
+  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <title>Select Spares</title>
+   
+   <style>
+     
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+*{
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ font-family: "Poppins", sans-serif;
+}
+
+body{
+ min-height: 100vh;
+ /* background: url(bg.jpg)no-repeat; */
+ background:black;
+ background-size: cover;
+ background-position: center;
+}
+
+.side-bar{
+ background: rgba(255, 255, 255, 0.1);
+ backdrop-filter: blur(15px);
+ width: 290px;
+ height: 100vh;
+ position: fixed;
+ top: 0;
+ left: -100%;
+ overflow-y: auto;
+ transition: 0.6s ease;
+ transition-property: left;
+ z-index: 1000;
+}
+
+.side-bar.active{
+ left: 0;
+}
+
+.side-bar .menu{
+ width: 100%;
+ margin-top: 80px;
+}
+
+.side-bar .menu .item{
+ position: relative;
+ cursor: pointer;
+}
+
+.side-bar .menu .item a{
+ color: #fff;
+ font-size: 16px;
+ text-decoration: none;
+ display: block;
+ padding: 5px 30px;
+ line-height: 60px;
+}
+
+.side-bar .menu .item a:hover{
+ background: #8621F8;
+ transition: 0.3s ease;
+}
+
+.side-bar .menu .item i{
+ margin-right: 15px;
+}
+
+.side-bar .menu .item a .dropdown{
+ position: absolute;
+ right: 0;
+ margin: 20px;
+ transition: 0.3s ease;
+}
+
+.side-bar .menu .item .sub-menu{
+ background: rgba(255, 255, 255, 0.1);
+ display: none;
+}
+
+.side-bar .menu .item .sub-menu a{
+ padding-left: 80px;
+}
+
+.rotate{
+ transform: rotate(90deg);
+}
+
+.close-btn{
+ position: absolute;
+ color: #fff;
+ font-size: 20px;
+ right: 0;
+ margin: 25px;
+ cursor: pointer;
+}
+
+.menu-btn{
+ position: fixed;
+ color: #fff;
+ font-size: 20px;
+ margin: 25px;
+ cursor: pointer;
+}
+
+.main{
+ height: 100vh;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ padding: 50px;
+}
+
+.main h1{
+ color: rgba(255, 255, 255, 0.8);
+ font-size: 60px;
+ text-align: center;
+ line-height: 80px;
+}
+
+@media (max-width: 900px){
+ .main h1{
+   font-size: 40px;
+   line-height: 60px;
+ }
+}
+      tr{
+        white-space: nowrap;
+      }
+     
+   </style>
+   
+ </head>
+ <body>
+
+   <div class="menu-btn">
+     <i class="fas fa-bars"></i>
+   </div>
+   <div class="side-bar">
+     <div class="close-btn">
+       <i class="fas fa-times"></i>
+     </div>
+     <div class="menu">
+       <div class="item"><a href="technicianhome"><i class="fas fa-desktop"></i>Dashboard</a></div>
+       <div class="item">
+         <a class="sub-btn"><i class="fas fa-table"></i>Tables<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+          <a class="navbar-brand" href="tpending">Pending Devices</a>
+           <a class="navbar-brand" href="tready">Ready Devices</a>
+             <a class="navbar-brand" href="tfailed">Failed Devices</a>
+         </div>
+       </div>
+       <div class="item"><a href="#"><i class="fas fa-th"></i>Forms</a></div>
+       <div class="item">
+         <a class="sub-btn"><i class="fas fa-cogs"></i>RECORDS<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+           <a class="navbar-brand" href="customercreateacc">CREATE CUSTOMER RECORD</a>
+          
+         </div>
+       </div>
+       <div class="item"><a href="#"><i class="fas fa-info-circle"></i>About</a></div>
+     </div>
+   </div>
+   <!--<section class="main"> -->
+     
+  <div class="container" style="color:white;">
+    
+    
+    
+    
+    
+    
+  
+<div style="padding-top:50px;"> 
+
+<br>
+  
+  <h1>Select spares</h1> <br>
+  
+       <div class="alert alert-primary" role="alert">
+  <p> <%= locals.message ? message : 'welcome'%></p>
+</div>
+  <div class="alert alert-secondary" role="alert">
+  <p id="alertptag2"> </p>
+</div>
+<br>
+<br>
+<nav class="navbar navbar-light bg-light">
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-primary" type="submit">Search</button>
+  </form>
+</nav>
+ </div>
+ 
+
+   <form id="spareform" method="post" >
+        <br>
+<div class="row" >
+<div>
+<button type="submit" class="btn btn-outline-primary">Order Spare</button>
+</div>
+</div> <br>
+<div>
+<select id="selectlevel" name="level" class="form-select" >
+  <option value="1">One</option>
+  <option value="2">Two</option>
+  <option value="3">Three</option>
+</select><br>
+  <input type="text" id="deviceid" hidden value="<%= deviceid %>">
+  <input type="text" id="customerid" hidden value="<%= customerid %>">
+</div>
+
+     
+<div  class="table-responsive">
+ <table class="table">
+  <caption>List of users</caption>
+  <thead>
+
+    <tr>
+
+      <th scope="col">spare id</th>
+      
+      <th scope="col">branch</th>
+
+      <th scope="col">spare name</th>
+
+  <th scope="col">spare stock amount </th>
+
+      <th scope="col">total charge</th>
+      
+  <th scope="col">select quantity</th>
+
+   <th scope="col">select spare</th>
+      
+    </tr>
+
+  </thead>
+
+  <tbody>
+
+<% 
+console.log("hello ive started looping")
+if(rows.length > 0){  
+var id = 1;
+    rows.forEach( (row) => {
+  var spareamount = parseInt(row.spareamount)
+  
+  if(spareamount <= 0){  %>
+
+      <tr>
+
+      <th scope="row"><%= id %></th>
+      
+           <td><%= branchname%></td>
+
+      <td><%= row.sparename%></td>
+
+      <td><%= row.spareamount%></td>
+
+      <td><%= row.totalcharge%></td>
+             <td>
+ <span> spare is out of stock </span>
+ </td>
+   </tr>
+<%   }  else if( spareamount > 0 ){
+   
+  %>
+      
+
+    <tr>
+
+      <th scope="row"><%= id %></th>
+      
+           <td><%= branchname%></td>
+
+      <td><%= row.sparename%></td>
+
+      <td><%= row.spareamount%></td>
+
+      <td><%= row.totalcharge%></td>
+             <td>
+ <input type="number" id="quantity" value="1" name="quantity" placeholder="enter spare quantity"> 
+            </td>
+ <td>
+   <input type="checkbox">
+ </td>
+  
+              <td>
+  <input type="text" id="record" name="record" value="<%= row.spareid%>" hidden>
+  </td>
+<td>
+ <input type="text" id="spareprice" name="spareprice"  value="<%= row.totalcharge%>" hidden>
+   </td>
+</tr>
+   
+   
+<%  id++; } }) %>
+<% }else{%>
+<div> THERE IS NO DATA TO PRESENT</div>
+
+ <% }%>
+ 
+  </tbody>
+</table>
+</div>
+      </form>
+   
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<!--</section>-->
+
+   <script type="text/javascript">
+   
+   
+document.addEventListener('DOMContentLoaded', function(e){
+      var alertptag2 = document.querySelector("#alertptag2")
+    var select = document.querySelector("#selectlevel").value
+     var deviceid = document.querySelector("#deviceid").value
+   var customerid = document.querySelector("#customerid").value
+var spareform = document.getElementById("spareform")
+//spareform.style="background-color:red;"
+
+var quantity;
+var spareid;
+var spareprice;
+var sparename;
+var spareamount;
+
+var sarray = new Array()
+var sparesarray = new Array()
+
+spareform.addEventListener('click',(event)=>{ 
+
+var target = event.target
+
+if(target.getAttribute("type") == "checkbox" ){
+var checkbox = target
+/*checkbox.addEventListener("change",(event)=>{*/
+if(checkbox.checked){ 
+ // alert('im checked')
+  
+var td = checkbox.parentElement
+var tr = td.parentElement
+var trchildren = tr.children
+
+//console.log(trchildren)
+spareid = trchildren[7].children[0].value
+sparename= trchildren[2].textContent
+console.log(spareid)
+//console.log(sparename)
+spareamount = parseInt(trchildren[3].textContent)
+
+
+quantity = parseInt(trchildren[5].children[0].value)
+
+
+var quantityinput = trchildren[5].children[0]
+spareprice = trchildren[8].children[0].value
+
+//console.log(quantity)
+//console.log("result count")
+//console.log(spareamount)
+//console.log(quantity)
+
+var result = spareamount - quantity
+//console.log(result)
+
+if(result < 0){ 
+  alert("the quantity you chose is more than what is in stock")
+var messageone = "Please choose atleast one spare";
+alertptag2.textContent = messageone
+
+}
+
+else if(result > -1){ 
+quantityinput.setAttribute("readonly","")
+sarray = [spareid,sparename,quantity,spareprice]
+sparesarray.push(sarray)
+//console.log(sparesarray)
+}
+
+
+
+}else if(!checkbox.checked){ 
+ // alert('im unchecked')
+  
+var td = checkbox.parentElement
+var tr = td.parentElement
+var trchildren = tr.children
+
+spareid = trchildren[7].children[0].value
+quantity = trchildren[5].children[0].value
+//console.log(quantity)
+alert(sparesarray)
+console.log(sparesarray)
+var quantityinput = trchildren[5].children[0]
+quantityinput.removeAttribute("readonly")
+console.log(sparesarray.length)
+
+for(var x = 0; x < sparesarray.length; x++){
+
+var index = sparesarray[x].indexOf(spareid)
+console.log(sparesarray[x])
+if(index > -1 ){ 
+var removed = sparesarray.splice([x],1)
+alert(removed)
+//console.log("removed")
+//console.log(removed)
+x--
+}
+
+}
+}
+//})
+}else if(target.getAttribute("type")=="submit"){
+event.preventDefault()
+console.log(sparesarray.length)
+if(sparesarray.length == 0){ 
+
+var messageone = "Please choose atleast one spare";
+alertptag2.textContent = messageone
+
+}else{
+
+var data ={
+sparesarray:sparesarray,
+selectlevel: select,
+deviceid : deviceid,
+customerid : customerid
+}
+
+var options = {
+method : 'POST',
+headers : { 'content-type': 'application/json' },
+body:JSON.stringify(data)
+}
+
+
+
+var fetched = fetch('/technicianspares',options)
+//fetch('/technicianhome')
+
+async function fetching(){
+    var fetch = await fetched
+  var data = await fetch.json()
+   console.log(data)
+  console.log(data.url)
+ window.location.assign(data.url)
+var message = data.message
+//var datadeviceid = data.deviceid
+//var datarows  = data.rows
+//var datacustomerid = data.customerid
+alertptag2.textContent = message
+  
+}
+
+fetching()
+
+}
+}
+
+})
+})
+   
+   
+   
+   
+   $(document).ready(function(){
+     //jquery for toggle sub menus
+     $('.sub-btn').click(function(){
+       $(this).next('.sub-menu').slideToggle();
+       $(this).find('.dropdown').toggleClass('rotate');
+     });
+
+     //jquery for expand and collapse the sidebar
+     $('.menu-btn').click(function(){
+       $('.side-bar').addClass('active');
+       $('.menu-btn').css("visibility", "hidden");
+     });
+
+     $('.close-btn').click(function(){
+       $('.side-bar').removeClass('active');
+       $('.menu-btn').css("visibility", "visible");
+     });
+   });
+   </script>
+ </body>
+</html>
+    

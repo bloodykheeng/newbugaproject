@@ -1,7 +1,8 @@
-const express= require('express')
+
+  const express= require('express')
 const router = express.Router()
 const controller = require('./controller.js')
-
+const admincontroller = require('./admincontroller.js')
 
  /* index page */
 router.get("/", (req,res)=>{ 
@@ -19,21 +20,18 @@ res.render('supervisorlogin')
 /* index page end */
 /*admin page */
 
-router.get("/adminspares", (req,res)=>{ 
-res.render('adminpages/spares')
-})
-router.get("/admintechnicians", (req,res)=>{ 
-res.render('adminpages/technician')
-})
-router.get("/admincustomers", (req,res)=>{ 
-res.render('adminpages/customer')
-})
-router.get("/adminsupervisors", (req,res)=>{ 
-res.render("adminpages/supervisors")
-})
-router.get("/adminhome", (req,res)=>{ 
-res.render("admin")
-})
+router.get("/adminspares", admincontroller.adminsparestable)
+router.post("/adminsortspares", admincontroller.adminsparessort)
+router.post("/adminsorttechnicians", admincontroller.admintechnicianssort)
+router.post("/removesupervisor", admincontroller.supervisorremove)
+router.post("/adminsortusedspares", admincontroller.sortusedspares)
+
+router.post("/adminsortcustomers", admincontroller.admincustomerssort)
+router.get("/admintechnicians", admincontroller.adminpagestechnician)
+router.get("/admincustomers", admincontroller.adminpagescustomer)
+router.get("/adminsupervisors", admincontroller.adminpagessupervisors)
+
+router.get("/adminhome", admincontroller.adminhome)
 
 
 
@@ -41,29 +39,29 @@ res.render("admin")
 
 
 /* adminpages folder */
-router.get("/adminpagesspares", (req,res)=>{ 
-res.render('adminpages/spares')
-})
-router.get("/adminpagestechnicians", (req,res)=>{ 
-res.render('adminpages/technician')
+
+router.get("/adminpagesspares", admincontroller.adminsparestable)
+router.get("/adminpagesusedspare", admincontroller.adminusedspare)
+
+router.get("/adminpagestechnicians", admincontroller.adminpagestechnician)
 
 router.get("/adminpagestcreateacc", (req,res)=>{ 
 res.render('adminpages/techniciancreateacc')
 })
 
-})
-router.get("/adminpagescustomers", (req,res)=>{ 
-res.render('adminpages/customer')
-})
-router.get("/adminpagessupervisors", (req,res)=>{ 
-res.render("adminpages/supervisors")
-})
-router.get("/adminpageshome", (req,res)=>{ 
-res.render("admin")
-})
+
+router.get("/adminpagescustomers", admincontroller.adminpagescustomer )
+router.get("/adminpagessupervisors", admincontroller.adminpagessupervisors)
+
 
 router.get("/adminpagesacreateacc", (req,res)=>{ 
 res.render('adminpages/admincreateacc')
+})
+
+router.get("/adminpagestctoken", admincontroller.adminpagestctoken)
+
+router.get("/uploadspare", (req,res)=>{ 
+res.render('adminpages/sparesupload')
 })
 
 /*adminpages folder end */
@@ -79,41 +77,75 @@ router.get("/supervisorlogin", (req,res)=>{
 res.render("supervisorlogin")
 })
 router.get("/supervisor", (req,res)=>{ 
-res.render("supervisor")
+res.render("supervisorpages/supervisor")
 })
 
 /* supervisor login page end */
 
 /*technician login page */
-router.get("/technician", (req,res)=>{ 
-res.render("technician")
+router.get("/technicianhome", controller.technicianhome)
+
+router.get("/tpending", controller.tpending)
+
+router.post("/tpending", controller.tpendingpost)
+
+router.get("/tfailed", controller.tfailed)
+
+router.get("/tready", controller.tready)
+
+router.get("/tfailed", (req,res)=>{ 
+res.render("technicianpages/tfailed")
 })
+
+router.get("/tready", (req,res)=>{ 
+res.render("technicianpages/tready")
+})
+
 /* technician login page end */
 
 
 
 
 /*admin login */
-router.post("/adminloginpost",controller.adminlogin )
+router.post("/adminloginpost",admincontroller.adminlogin )
 
  /*admin create account */
 
-router.post("/admincacc",controller.admincacc )
+router.post("/admincacc",admincontroller.admincacc )
 
 
-router.post("/admintcacc", controller.admintcacc)
+router.post("/tcacc", controller.tcacc)
 
-/*
-router.get("/", (req,res)=>{ 
-res.render('index')
+router.get("/techniciancreateacc", (req,res)=>{ 
+res.render('technicianpages/techniciancreateacc')
 })
-router.get("/", (req,res)=>{ 
-res.render('index')
+
+
+router.post("/technicianlogin", controller.technicianlogin)
+
+router.post("/customercacc", controller.customercacc)
+  
+router.get("/customercreateacc", (req,res)=>{ 
+res.render('technicianpages/customerlogin')
 })
-  */
 
+router.post("/supervisor", controller.supervisorlogin)
 
+router.get("/adminpagessupervisorcacc", (req,res)=>{ 
+res.render('adminpages/supervisorcreateacc')
+})
 
+router.post("/supervisorcacc", admincontroller.supervisorcacc)
 
+router.post("/techniciancreatetoken",admincontroller.tctoken)
+
+router.post("/uploadspare",admincontroller.uploadspare)
+
+router.post("/adminpagessearchspare",admincontroller.adminsearchspare)
+
+router.post("/technicianaddspare",controller.technicianaddspare)
+
+router.post("/technicianspares",controller.technicianspares)
 
 module.exports= router
+      

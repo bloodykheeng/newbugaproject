@@ -108,7 +108,7 @@
 }
 
     </style>
-    <title> Admin Dashboard</title>
+    <title> Admin Dashboard Supervisor Createaccount</title>
 </head>
 
 <body>
@@ -120,13 +120,14 @@
             <div class="list-group list-group-flush my-3">
                 <a href="adminhome" class="list-group-item list-group-item-action bg-transparent second-text active"><i
                         class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
-                <a href="adminpagesspares" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="adminspares" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Manage Spares</a>
-                <a href="adminpagestechnicians" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="admintechnicians" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Manage Technicians</a>
-                <a href="adminpagescustomers" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="admincustomers" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Manage customers</a>
-                <a href="adminpagessupervisors" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="adminsupervisors"
+     style="background-color:green;"     class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Manage Supervisors</a>
              
                 <a href="#" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
@@ -170,17 +171,56 @@
              
 
    <div class="row my-5">
-<h3 class="fs-4 mb-3">Recent Orders</h3>
-  <div>
-<nav class="navbar navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="adminpagesacreateacc">Create Admin</a>
+     
+     
+     
+     
+<div class="container">
+<h2>this is the land where we create customers from</h2>
+    <h3>CREATE SUPERVISOR</h3>
+    <br>
+    <div class="alert alert-primary" role="alert">
+  <p> <%= locals.message ? message : 'welcome'%></p>
+</div>
+<br>
+ <div>
+ <form method="post" action="supervisorcacc">
+<div class="form-group">
+    <label for="customerfname">Enter supervisor firstname</label>
+    <input name="firstname" type="text" class="form-control" placeholder="enter supervisor firstname">
   </div>
-</nav>
-</div> <br>
-  <h1>Hello  <%= rows[0].adminusername%> </h1>
-  <h3>Your welcome to the admins dashboard</h3>
-<h4> feel free to tour the Admin panel </h4>
+  <div class="form-group">
+    <label for="customerlname">enter supervisor last name</label>
+    <input name="lastname" type="text" class="form-control" placeholder="enter supervisor last name">
+  </div>
+  <div class="form-group">
+    <label for="username1">enter customer username</label>
+    <input name="username" type="text" class="form-control" placeholder="enter supervisor username">
+  </div>
+  <div class="form-group">
+    <label for="email">enter supervisor password</label>
+    <input name="password" type="password" class="form-control" placeholder="enter supervisor password">
+  </div>
+  
+    <div class="form-group">
+    <label for="username1">Re enter password</label>
+    <input name="cpassword" type="password" class="form-control" placeholder="confirm supervisor password">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Create new supervisor</button>
+</form>
+       <br><br>
+      
+     <div>
+        <a href="adminpagessupervisors"> back to supervisors</a>
+        </div>
+    
+      </div>
+    
+    </div>
+
+
+
                 
                 </div>
 

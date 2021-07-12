@@ -106,9 +106,13 @@
     margin-left: -15rem;
   }
 }
+tr{ 
+  
+  white-space: nowrap;
+}
 
     </style>
-    <title> Admin Dashboard</title>
+    <title> Admin Dashboard create token</title>
 </head>
 
 <body>
@@ -120,13 +124,14 @@
             <div class="list-group list-group-flush my-3">
                 <a href="adminhome" class="list-group-item list-group-item-action bg-transparent second-text active"><i
                         class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
-                <a href="adminpagesspares" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="adminspares" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Manage Spares</a>
-                <a href="adminpagestechnicians" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="admintechnicians"
+       style="background-color:green;" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Manage Technicians</a>
-                <a href="adminpagescustomers" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="admincustomers" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Manage customers</a>
-                <a href="adminpagessupervisors" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="adminsupervisors" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Manage Supervisors</a>
              
                 <a href="#" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
@@ -170,17 +175,111 @@
              
 
    <div class="row my-5">
-<h3 class="fs-4 mb-3">Recent Orders</h3>
-  <div>
-<nav class="navbar navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="adminpagesacreateacc">Create Admin</a>
+     
+     
+     
+     
+     
+     
+<div class="container">
+<h2>this is the land where Admins create technicians tokens from</h2>
+    <h3>CREATE TECHNICIAN TOKENS</h3>
+    <br>
+    <div class="alert alert-primary" role="alert">
+  <p> <%= locals.message ? message : 'welcome'%></p>
+</div>
+<br>
+
+ <div>
+ <form method="post" action="techniciancreatetoken">
+<div class="form-group">
+    <label for="token">TOKEN</label>
+    <input name="token" type="text" class="form-control" placeholder="CREATE TECHNICIAN TOKEN">
   </div>
-</nav>
-</div> <br>
-  <h1>Hello  <%= rows[0].adminusername%> </h1>
-  <h3>Your welcome to the admins dashboard</h3>
-<h4> feel free to tour the Admin panel </h4>
+  <button type="submit" class="btn btn-primary">Create Token</button>
+</form>
+       <br><br>
+       
+  
+  
+<div  class="table-responsive">
+ <table class="table">
+  <caption>List of users</caption>
+  <thead>
+
+    <tr>
+
+      <th scope="col">id</th>
+      
+      <th scope="col">Branch Name</th>
+
+      <th scope="col">Date Created</th>
+
+      <th scope="col">entryCode</th>
+
+      <th scope="col">technician first name</th>
+
+      <th scope="col">technician last name</th>
+   
+    </tr>
+
+  </thead>
+
+  <tbody>
+
+<% 
+
+if(rows.length > 0){  
+var id = 1;
+  rows.forEach( (row) => {
+  
+%>
+    <tr>
+
+      <th scope="row"><%= id %></th>
+      
+      <td><%= row.branchname%></td>
+
+      <td><%= row.datecreated %></td>
+
+      <td><%= row.entrycode %></td>
+
+      <td><%= row.technicianfname %></td>
+      <td><%= row.technicianlname   %></td>
+      
+    </tr>
+
+<%  id++; }) }else{%>
+<div> THERE IS NO DATA TO PRESENT</div>
+
+ <% }%>
+ 
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+<br>
+       
+       
+      
+     <div>
+        <a href="adminpagestechnicians"> back to technicians</a>
+        </div>
+    
+      </div>
+    
+    </div>
+                
+                
+                
+                
+                
+                
+                
                 
                 </div>
 

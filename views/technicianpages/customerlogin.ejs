@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+ <head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Sidebar menu With Sub-menus | Using HTML, CSS & JQuery</title>
+ <!--  <link rel="stylesheet" href="style.css"> -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+  
+  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <title>Technician Home</title>
+   
+   <style>
+     
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+*{
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ font-family: "Poppins", sans-serif;
+}
+
+body{
+ min-height: 100vh;
+ /* background: url(bg.jpg)no-repeat; */
+ background:black;
+ background-size: cover;
+ background-position: center;
+}
+
+.side-bar{
+ background: rgba(255, 255, 255, 0.1);
+ backdrop-filter: blur(15px);
+ width: 290px;
+ height: 100vh;
+ position: fixed;
+ top: 0;
+ left: -100%;
+ overflow-y: auto;
+ transition: 0.6s ease;
+ transition-property: left;
+ z-index: 1000;
+}
+
+.side-bar.active{
+ left: 0;
+}
+
+.side-bar .menu{
+ width: 100%;
+ margin-top: 80px;
+}
+
+.side-bar .menu .item{
+ position: relative;
+ cursor: pointer;
+}
+
+.side-bar .menu .item a{
+ color: #fff;
+ font-size: 16px;
+ text-decoration: none;
+ display: block;
+ padding: 5px 30px;
+ line-height: 60px;
+}
+
+.side-bar .menu .item a:hover{
+ background: #8621F8;
+ transition: 0.3s ease;
+}
+
+.side-bar .menu .item i{
+ margin-right: 15px;
+}
+
+.side-bar .menu .item a .dropdown{
+ position: absolute;
+ right: 0;
+ margin: 20px;
+ transition: 0.3s ease;
+}
+
+.side-bar .menu .item .sub-menu{
+ background: rgba(255, 255, 255, 0.1);
+ display: none;
+}
+
+.side-bar .menu .item .sub-menu a{
+ padding-left: 80px;
+}
+
+.rotate{
+ transform: rotate(90deg);
+}
+
+.close-btn{
+ position: absolute;
+ color: #fff;
+ font-size: 20px;
+ right: 0;
+ margin: 25px;
+ cursor: pointer;
+}
+
+.menu-btn{
+ position: absolute;
+ color: #fff;
+ font-size: 20px;
+ margin: 25px;
+ cursor: pointer;
+}
+
+.main{
+ height: 100vh;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ padding: 50px;
+}
+
+.main h1{
+ color: rgba(255, 255, 255, 0.8);
+ font-size: 60px;
+ text-align: center;
+ line-height: 80px;
+}
+
+@media (max-width: 900px){
+ .main h1{
+   font-size: 40px;
+   line-height: 60px;
+ }
+}
+      
+     
+   </style>
+   
+ </head>
+ <body>
+
+   <div class="menu-btn">
+     <i class="fas fa-bars"></i>
+   </div>
+   <div class="side-bar">
+     <div class="close-btn">
+       <i class="fas fa-times"></i>
+     </div>
+     <div class="menu">
+       <div class="item"><a href="technicianhome"><i class="fas fa-desktop"></i>Dashboard</a></div>
+       <div class="item">
+         <a class="sub-btn"><i class="fas fa-table"></i>Tables<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+          <a class="navbar-brand" href="tpending">Pending Devices</a>
+           <a class="navbar-brand" href="tready">Ready Devices</a>
+             <a class="navbar-brand" href="tfailed">Failed Devices</a>
+         </div>
+       </div>
+       <div class="item"><a href="#"><i class="fas fa-th"></i>Forms</a></div>
+       <div class="item">
+         <a class="sub-btn"><i class="fas fa-cogs"></i>RECORDS<i class="fas fa-angle-right dropdown"></i></a>
+         <div class="sub-menu">
+           <a class="navbar-brand" href="customercreateacc">CREATE CUSTOMER RECORD</a>
+          
+         </div>
+       </div>
+       <div class="item"><a href="#"><i class="fas fa-info-circle"></i>About</a></div>
+     </div>
+   </div>
+   <!--<section class="main"> -->
+     
+  <div class="container" style="color:white;">
+  
+<h2 style="padding-top:50px;">this is the land where we create customers from</h2>
+    <h3>CREATE CUSTOMER</h3>
+    <br>
+    <div class="alert alert-primary" role="alert">
+  <p> <%= locals.message ? message : 'welcome'%></p>
+</div>
+<br>
+ <div>
+ <form method="post" action="customercacc">
+<div class="form-group">
+    <label for="customerfname">Enter customer firstname</label>
+    <input name="firstname" type="text" class="form-control" placeholder="enter customer firstname">
+  </div>
+  <div class="form-group">
+    <label for="customerlname">enter customer last name</label>
+    <input name="lastname" type="text" class="form-control" placeholder="enter customer last name">
+  </div>
+  <div class="form-group">
+    <label for="username1">enter customer phonenumber</label>
+    <input name="phonenumber" type="text" class="form-control" placeholder="enter customer contact">
+  </div>
+  <div class="form-group">
+    <label for="email">enter customer email</label>
+    <input name="email" type="text" class="form-control" placeholder="enter customer email">
+  </div>
+  
+    <div class="form-group">
+    <label for="username1">devicename</label>
+    <input name="devicename" type="text" class="form-control" placeholder="enter devicename">
+  </div>
+  
+  
+  <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <label class="input-group-text" for="inputGroupSelect01">Warrant Options</label>
+  </div>
+  <select name="warranty" class="custom-select" id="inputGroupSelect01">
+    <option value= "TRUE">TRUE</option>
+    <option value= "FALSE">FALSE</option>
+  </select>
+</div>
+  <br>
+  
+      <div class="form-group">
+    <label for="username1">deviceimei</label>
+    <input name="deviceimei" type="text" class="form-control" placeholder="enter deviceimei">
+  </div>
+  
+        <div class="form-group">
+    <label for="username1">deviceserial</label>
+    <input name="deviceserial" type="text" class="form-control" placeholder="enter device serial number">
+  </div>
+  
+  
+  <button type="submit" class="btn btn-primary">Create customer record</button>
+</form>
+       <br><br>
+      
+ 
+
+
+
+
+
+</div>
+
+<!--</section>-->
+
+   <script type="text/javascript">
+   $(document).ready(function(){
+     //jquery for toggle sub menus
+     $('.sub-btn').click(function(){
+       $(this).next('.sub-menu').slideToggle();
+       $(this).find('.dropdown').toggleClass('rotate');
+     });
+
+     //jquery for expand and collapse the sidebar
+     $('.menu-btn').click(function(){
+       $('.side-bar').addClass('active');
+       $('.menu-btn').css("visibility", "hidden");
+     });
+
+     $('.close-btn').click(function(){
+       $('.side-bar').removeClass('active');
+       $('.menu-btn').css("visibility", "visible");
+     });
+   });
+   </script>
+
+ </body>
+</html>
+    
