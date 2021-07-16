@@ -12,39 +12,87 @@
       
     <title>index.html</title>
 <style>
-  .card{ margin:20px;
-    
-    background: linear-gradient(to bottom, #90ee90,transparent,transparent);
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+*{
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ font-family: "Poppins", sans-serif;
+}
+
+
+
+body{
+  background:lightgreen;
+  box-sizing: border-box;
+  margin:0;
+}
+  .card{ 
+margin:20px;
+ background:url("images/index.jpeg");
+ background-position: center;
+ background-size:cover;
+ width:90%;
   }
-  .container1{
-    
-display: flex;
-    flex-wrap: wrap;
-  }
-</style>
+
+  
+  #mydiv{
+ position:absolute;
+ z-index: -1;
+background :url("images/images (44).jpeg");
+opacity:0.5;
+ height:100%;
+ width:100%;
+   background-position: center;
+   background-size: cover;
+   
+    }
+    #bodydiv{
+      display:flex;
+      text-align: center;
+      flex-direction: column;
+      width:100%;
+      height:100%;
+      justify-content: center;
+    }
+ .carddiv{
+  justify-content: center;
+   display:flex;
+  flex-direction: column;
+   align-items: center;
+   height:80%;
+   padding:20px;
+ }
+ </style>
+ 
   </head>
   <body>
-   <div class="container" width="100%" >
-   
+  <div id="mydiv">
+  </div>
+  
+   <div id="bodydiv">
+   <div>
      <h1>BUGA TECH SERVICE CENTER</h1>
-     <br>
+     
      <h3>choose your fate</h3>
+     </div>
      
      
-     
-     <div class="container1">
+     <div class="carddiv">
 <div class="card" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">ADMIN PANEL</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <p class="card-text">This section is only restricted for Admins</p>
     <a href="adminlogin" class="btn btn-primary">ADMIN</a>
   </div>
 </div>
 
 <div class="card text-center" style="width: 18rem;">
   <div class="card-body">
-    <h5 class="card-title">TEVHNICIAN PANEL</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <h5 class="card-title">TECHNICIAN PANEL</h5>
+    <p class="card-text">This section is only restricted for technicians</p>
     <a href="technicianlogin" class="btn btn-primary">TECHNICIAN</a>
   </div>
 </div>
@@ -52,7 +100,7 @@ display: flex;
 <div class="card text-end" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">SUPERVISOR PANEL</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <p class="card-text">This section is only restricted for supervisors</p>
     <a href="supervisorlogin" class="btn btn-primary">SUPERVISOR</a>
   </div>
   </div>

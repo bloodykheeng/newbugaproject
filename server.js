@@ -6,7 +6,7 @@ const {v4:uuidv4} = require("uuid")
 const session = require('express-session')
 const bcryptjs = require('bcryptjs')
 const app = express()
-
+const path = require("path")
 
 
 const port = process.env.PORT || 3000
@@ -20,6 +20,8 @@ app.use(session({
 	resave:false,
 	saveUninitialized : true
 	}))
+	
+app.use('/images',express.static(path.join(__dirname,'public/images')))
 
 app.use('/',router)
 app.listen(port,()=>{ 

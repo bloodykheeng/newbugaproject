@@ -10,12 +10,24 @@
    
     <style>
     
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+*{
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ font-family: "Poppins", sans-serif;
+}
+
+    
     :root {
   --main-bg-color: #009d63;
   --main-text-color: #009d63;
   --second-text-color: #bbbec5;
   --second-bg-color: #c1efde;
 }
+
+
 
 .primary-text {
   color: var(--main-text-color);
@@ -122,9 +134,9 @@ tr{
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i
                     class="fas fa-user-secret me-2"></i>Buga Tech</div>
             <div class="list-group list-group-flush my-3">
-                <a href="adminhome" class="list-group-item list-group-item-action bg-transparent second-text active"><i
+                <a href="adminhome" class="list-group-item list-group-item-action bg-transparent second-text "><i
                         class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
-                <a href="adminpagesspares"   style="background:green;" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="adminpagesspares"   style="background:green;" class="list-group-item list-group-item-action bg-transparent second-text active fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Manage Spares</a>
                 <a href="adminpagestechnicians" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Manage Technicians</a>
@@ -132,8 +144,11 @@ tr{
                         class="fas fa-chart-line me-2"></i>Manage customers</a>
                 <a href="adminpagessupervisors" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Manage Supervisors</a>
+                        
+                   <a href="adminpagesadminaccounts" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+   <i class="fas fa-chart-line me-2"></i>Manage Admins</a>
              
-                <a href="#" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
+                <a href="logout" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
                         class="fas fa-power-off me-2"></i>Logout</a>
             </div>
         </div>
@@ -147,40 +162,21 @@ tr{
                     <h2 class="fs-2 m-0">Dashboard</h2>
                 </div>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i> Buga
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
-                                <li><a class="dropdown-item" href="#">Settings</a></li>
-                                <li><a class="dropdown-item" href="#">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+ 
             </nav>
 
 
  <div class="container-fluid px-4">
     <div class="row my-5">
 <div>
-<nav class="navbar navbar-light bg-light">
-  <div class="container-fluid">
+<nav style="display:flex; flex-direction:row; left-border:1px solid lightgreen; justify-content:space-around;" class="navbar navbar-light bg-light">
+  
     <a class="navbar-brand" href="uploadspare">Upload Spare</a>
-  </div>
-    <div class="container-fluid">
+
+ <a class="navbar-brand" href="#">Out-of-Stock</a>
+  
     <a class="navbar-brand" href="adminpagesusedspare">Used Spares</a>
-  </div>
+
 </nav>
 </div> <br><br>
       
@@ -221,6 +217,7 @@ tr{
    <th scope="col">spare total charge</th>
    <th scope="col">Date created</th>
 
+    <th scope="col">Update Quantity</th>
    <th scope="col">Delete Spare</th>
               </tr>
                             </thead>
@@ -234,16 +231,27 @@ var id = 1;
 
       <th scope="row"><%= id %></th>
    <td> <%= row.branchname %></td>
+   
+   <form action="adminupdatequantity" method="post">
+<input type="text" name="spareid" value="<%= row.spareid %>" hidden>
       <td><%= row.sparename %></td>
-
-      <td><%= row.spareamount%></td>
+      
+           <td>
+<input type="number" name="quantity" value="<%= row.spareamount%>" style="border:none;" readonly="">
+                 </td>
 
       <td><%= row.spareprice %></td>
       <td><%= row.sparetax %></td>
       <td><%= row.totalcharge %></td>
        <td> <%= row.datecreated %></td>
-       
-       <td><span class="material-icon">delete</span></td>
+   <td><button type="submit" class="btn btn-secondary"><span class="material-icon">update Q</span></button></td>
+     </form>
+     <td>
+ <form action="removespare" method="post">
+   <input type="text" value="<%=row.spareid%>" name="spareid" hidden>
+   <button class="btn btn-primary" type="submit"><span class="material-icon">delete</span></button>
+ </form>
+    </td>
 
     </tr>
     
@@ -267,6 +275,21 @@ var id = 1;
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+  var table = document.querySelector("table")  
+  
+  table.addEventListener("click",(e)=>{
+    var target = e.target
+    if(target.getAttribute("type") == "number"){
+  target.removeAttribute("readonly")
+  
+    }else{ 
+      
+ target.setAttribute("readonly","")
+    }
+  })
+  
+  
+    
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
 

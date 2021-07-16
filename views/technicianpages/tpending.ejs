@@ -15,7 +15,7 @@
       rel="stylesheet">
     <title>TPENDING</title>
    
-   <style>
+    <style>
      
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
@@ -26,17 +26,28 @@
  font-family: "Poppins", sans-serif;
 }
 
+#mydiv{
+  
+  background:url("images/blackkeyboard.jpeg");
+min-height: 100%;
+min-width: 100%;
+background-size: cover;
+ background-position: center;
+z-index:-1;
+ position: absolute;
+ opacity:0.2;
+}
+
 body{
- min-height: 100vh;
+ 
  /* background: url(bg.jpg)no-repeat; */
  background:black;
- background-size: cover;
- background-position: center;
+ 
 }
 
 .side-bar{
  background: rgba(255, 255, 255, 0.1);
- backdrop-filter: blur(15px);
+ backdrop-filter: blur(200px);
  width: 290px;
  height: 100vh;
  position: fixed;
@@ -110,9 +121,9 @@ body{
 }
 
 .menu-btn{
- position: fixed;
+ position:fixed;
  color: #fff;
- font-size: 20px;
+ font-size: 40px;
  margin: 25px;
  cursor: pointer;
 }
@@ -138,15 +149,24 @@ body{
    line-height: 60px;
  }
 }
-      tr{ 
+      
+            tr{ 
 white-space: nowrap;
 }
-     
+
+.table{
+  max-height:100%;
+}
+.table-responsive{
+height:1000px;
+  }
+
+
    </style>
    
  </head>
  <body>
-
+<div id="mydiv"></div>
    <div class="menu-btn">
      <i class="fas fa-bars"></i>
    </div>
@@ -164,38 +184,49 @@ white-space: nowrap;
              <a class="navbar-brand" href="tfailed">Failed Devices</a>
          </div>
        </div>
-       <div class="item"><a href="#"><i class="fas fa-th"></i>Forms</a></div>
-       <div class="item">
+     
+  <div class="item"><a href="technicianbranchscope"><i class="fas fa-angle-right"></i>Branch Scope</a></div>
+       
+      <div class="item">
          <a class="sub-btn"><i class="fas fa-cogs"></i>RECORDS<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-           <a class="navbar-brand" href="customercreateacc">CREATE CUSTOMER RECORD</a>
+           <a class="navbar-brand" href="customercreateacc">CUSTOMER RECORD</a>
           
          </div>
        </div>
-       <div class="item"><a href="#"><i class="fas fa-info-circle"></i>About</a></div>
+       <div class="item"><a href="tlogout"><i class="fas fa-info-circle"></i>logout</a></div>
      </div>
    </div>
    <!--<section class="main"> -->
      
-  <div class="container" style="color:white;">
+  <div class="maincontainer" style="color:white; padding-top:50px; margin-left:10%; margin-right:10%;">
   
   <div style="padding-top:50px;">
 
   
   <h1>technicians pending devices page</h1> <br>
        <div class="alert alert-primary" role="alert">
-  <p> <%= locals.message ? message : 'welcome'%></p>
+  <p id="alertp"> <%= locals.message ? message : 'welcome'%></p>
 </div>
 <br>
 
-</nav>
 </div> <br>
-<nav class="navbar navbar-light ">
-  <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+
+<div style="display:flex; justify-content:center;">
+<span style="margin-right:30px;"><a class="btn btn-primary" href="tpending">back</a></span>
+
+  
+</div>
+<br>
+
+<nav class="navbar navbar-light">
+  <form method="post" action="tpendingsearch" class="form-inline">
+   <input name="search" class="form-control mr-sm-2" type="text" placeholder="Search" >
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
   </form>
 </nav>
+    
+ <br>
   
   
 
@@ -217,9 +248,13 @@ white-space: nowrap;
       <th scope="col">customer email</th>
       
       <th scope="col">devicce name</th>
+      <th scope="col">problem description</th>
       <th scope="col">warrant status</th>
       <th scope="col">date created</th>
-      <th scope="col">device status</th>
+   <th scope="col">device status</th>
+  <th scope="col">spare total price</th>
+  <th scope="col">View used spares</th>
+      
          <th scope="col">Order more spare</th>
       <th scope="col">Update device status</th>
       <th scope="col">Set Device Fate</th>
@@ -248,14 +283,30 @@ var id = 1;
       <td><%= row.customercontact %></td>
       <td><%= row.email%></td>
       <td><%= row.devicename%></td>
+      <td><%= row.customercomment%></td>
       <td><%= row.warrant%></td>
       <td><%= row.datecreated%></td>
-         <td><%= row.devicestatus%></td>
+      <td><%= row.devicestatus%></td>
+  <td><%= row.devicetotalcharge%></td>
+ 
+               <td>  
+  <form class="viewusedspare" method="post" action="#">
+  <input type="text" name="deviceid" hidden value="<%= row.deviceid %>">
+  
+    <input type="text" name="customerfname" hidden value="<%= row.customerfname %>">
+  
+   <input type="text" name="devicename" hidden value="<%= row.devicename%>">
+    
+ <button name="myusedspare" class="btn btn-outline-primary" type="submit">View used spares</button>
+      </form>
+      </td>
+  
+  
                 <td>
     <form method="post" action="technicianaddspare">
   <input type="text" name="deviceid" hidden value="<%= row.deviceid %>">
     <input type="text" name="customerid" hidden value="<%= row.customerid %>">
- <button type="submit">Add more spare</button>
+ <button class="btn btn-outline-success" type="submit">Add more spare</button>
       </form>
          </td>
        <td>
@@ -272,7 +323,7 @@ var id = 1;
 </div>
     </td>
     <td>
- <button type="submit">Fate</button>
+ <button class="btn btn-success" type="submit">Fate</button>
       </form>
          </td>
        
@@ -297,6 +348,82 @@ var id = 1;
 <!--</section>-->
 
    <script type="text/javascript">
+   var alert = document.querySelector("#alertp")
+   
+   var table = document.querySelector("table")
+   
+  table.addEventListener("click",(e)=>{
+  
+     var target = e.target
+     
+     
+   if(target.getAttribute("name") == "myusedspare"){
+   e.preventDefault()
+      //alert("they have")
+
+ usedspareform = e.target.parentElement
+
+formchildren = usedspareform.children
+     
+ var deviceid  = formchildren[0].value
+var customerfname = formchildren[1].value
+var devicename = formchildren[2].value
+     
+     
+//alert(deviceid +" "+ customerfname+" " +devicename)
+
+
+
+var data ={
+deviceid:deviceid
+}
+
+var options = {
+method : 'POST',
+headers : { 'content-type': 'application/json' },
+body:JSON.stringify(data)
+}
+
+
+
+var fetched = fetch('/technicianviewspares',options)
+//fetch('/technicianhome')
+
+
+async function fetching(){
+    var fetch = await fetched
+  var data = await fetch.json()
+
+  console.log("my data below")
+var rows = data.rows
+
+   var sparename = rows[0].sparename
+   var sparequantity = rows[0].quantity
+   
+   var message =" The spares used on "+customerfname+"'s device : "+ devicename+" are :-"
+   alert.innerHTML = message
+  
+   for(var x = 0; x < rows.length; x++){
+  
+alert.innerHTML += "sparename : "+rows[x].sparename 
+alert.innerHTML += "spare quantity used :"+rows[0].quantity 
+     
+     }
+   
+   //console.log(message)
+}
+fetching()
+}    })
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    $(document).ready(function(){
      //jquery for toggle sub menus
      $('.sub-btn').click(function(){

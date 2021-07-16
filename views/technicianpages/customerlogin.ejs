@@ -15,7 +15,7 @@
       rel="stylesheet">
     <title>Technician Home</title>
    
-   <style>
+     <style>
      
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
@@ -26,17 +26,29 @@
  font-family: "Poppins", sans-serif;
 }
 
+#mydiv{
+  
+  background:url("images/blackkeyboard.jpeg");
+height: 100%;
+width: 100%;
+background-size: cover;
+ background-position: center;
+z-index:-1;
+ position: absolute;
+ opacity:0.2;
+}
+
 body{
- min-height: 100vh;
+ width:100%;
+ height:100%;
  /* background: url(bg.jpg)no-repeat; */
  background:black;
- background-size: cover;
- background-position: center;
+ 
 }
 
 .side-bar{
  background: rgba(255, 255, 255, 0.1);
- backdrop-filter: blur(15px);
+ backdrop-filter: blur(200px);
  width: 290px;
  height: 100vh;
  position: fixed;
@@ -110,9 +122,9 @@ body{
 }
 
 .menu-btn{
- position: absolute;
+ position:fixed;
  color: #fff;
- font-size: 20px;
+ font-size: 40px;
  margin: 25px;
  cursor: pointer;
 }
@@ -139,12 +151,17 @@ body{
  }
 }
       
-     
+            tr{ 
+white-space: nowrap;
+}
+
+
+
    </style>
    
  </head>
  <body>
-
+<div id="mydiv"></div>
    <div class="menu-btn">
      <i class="fas fa-bars"></i>
    </div>
@@ -162,20 +179,22 @@ body{
              <a class="navbar-brand" href="tfailed">Failed Devices</a>
          </div>
        </div>
-       <div class="item"><a href="#"><i class="fas fa-th"></i>Forms</a></div>
+    
+  <div class="item"><a href="technicianbranchscope"><i class="fas fa-angle-right"></i>Branch Scope</a></div>
+    
        <div class="item">
          <a class="sub-btn"><i class="fas fa-cogs"></i>RECORDS<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-           <a class="navbar-brand" href="customercreateacc">CREATE CUSTOMER RECORD</a>
+           <a class="navbar-brand" href="customercreateacc">CUSTOMER RECORD</a>
           
          </div>
        </div>
-       <div class="item"><a href="#"><i class="fas fa-info-circle"></i>About</a></div>
+       <div class="item"><a href="tlogout"><i class="fas fa-info-circle"></i>logout</a></div>
      </div>
    </div>
    <!--<section class="main"> -->
      
-  <div class="container" style="color:white;">
+  <div class="maincontainer" style="color:white; padding-top:50px; margin-right:15%; margin-left:15%;">
   
 <h2 style="padding-top:50px;">this is the land where we create customers from</h2>
     <h3>CREATE CUSTOMER</h3>
@@ -228,6 +247,14 @@ body{
         <div class="form-group">
     <label for="username1">deviceserial</label>
     <input name="deviceserial" type="text" class="form-control" placeholder="enter device serial number">
+  </div>
+  
+   <div class="form-group">
+    <label for="username1">enter customer comment</label>
+   <textarea required class="form-control" name="devicecomment" placeholder="describe the device problem">
+      
+    </textarea>
+  
   </div>
   
   

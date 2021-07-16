@@ -4,53 +4,104 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title></title>
+
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
+<title>supervisor home</title>
   </head>
   <body>
    
    <div class="container">
 <div class="alert alert-info" role="alert">
-  This is a info alert with  <h1> hello supervisor your welcome to our page</h1>
+  <h1> hello supervisor;
+  </h1>
+<p> <%= locals.message ? message : 'welcome'%></p>
 </div> <br>
 
+
+
+<div style="display:flex; justify-content:center;">
+<span style="margin-right:30px;"><a class="btn btn-primary" href="supervisorhome">back</a></span>
+<span><a class="btn btn-primary" href="supervisorlogout">logout</a></span>
+  
+</div>
+<br>
+
 <nav class="navbar navbar-light bg-light">
-  <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+  <form method="post" action="supervisorsearch" class="form-inline">
+   <input name="search" class="form-control mr-sm-2" type="text" placeholder="Search" >
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
   </form>
 </nav>
     
+ <br>
+ <br>
+
+<div  class="table-responsive">
+ <table class="table" style="white-space:nowrap;">
+  <caption>List of My Customers and there devices</caption>
+  <thead class="thead-dark" >
+
+    <tr>
+
+      <th scope="col">customer id</th>
+
+   <th scope="col">devicename</th>
+
+ <th scope="col">device problem</th>
+
+ <th scope="col">tachnician first name</th>
+ <th scope="col">tachnician last name</th>
+ <th scope="col">tachnician email</th>
  
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+ <th scope="col">tachnician contact</th>
+ 
+ <th scope="col">date created</th>
+      
     </tr>
+
   </thead>
+
   <tbody>
+
+<% 
+
+if(rows.length > 0){  
+var id = 1;
+  rows.forEach( (row) => {
+%>
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
+   
+      <td><%= id %></td>
+
+      <td><%= row.devicename %></td>
+
+      <td><%= row.customercomment %></td>
+
+      <td><%= row.technicianfname %></td>
+      <td><%= row.technicianlname %></td>
+      <td><%= row.technicianemail%></td>
+      <td><%= row.techniciannumber%></td>
+      <td><%= row.datecreated%></td>
+      
+        
+       </tr>
+
+<%  id++; }) }else{%>
+<div> THERE IS NO DATA TO PRESENT</div>
+
+ <% }%>
+ 
   </tbody>
 </table>
+</div>
+
+
+
+
+
+
+
+
 </div>
 
     

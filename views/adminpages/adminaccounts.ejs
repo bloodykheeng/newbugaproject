@@ -21,7 +21,6 @@
 }
 
     
-    
     :root {
   --main-bg-color: #009d63;
   --main-text-color: #009d63;
@@ -118,6 +117,10 @@
   }
 }
 
+tr{
+        white-space: nowrap;
+      }
+      
     </style>
     <title> Admin Dashboard</title>
 </head>
@@ -129,7 +132,7 @@
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i
                     class="fas fa-user-secret me-2"></i>Buga Tech</div>
             <div class="list-group list-group-flush my-3">
-                <a href="adminhome" class="list-group-item list-group-item-action bg-transparent second-text active"><i
+                <a href="adminhome" class="list-group-item list-group-item-action bg-transparent second-text"><i
                         class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
                 <a href="adminpagesspares" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Manage Spares</a>
@@ -139,7 +142,7 @@
                         class="fas fa-chart-line me-2"></i>Manage customers</a>
                 <a href="adminpagessupervisors" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Manage Supervisors</a>
- <a href="adminpagesadminaccounts" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+ <a href="adminpagesadminaccounts" class="list-group-item list-group-item-action bg-transparent second-text active fw-bold">
    <i class="fas fa-chart-line me-2"></i>Manage Admins</a>
                         
              
@@ -157,18 +160,86 @@
                     <h2 class="fs-2 m-0">Dashboard</h2>
                 </div>
 
-             
+         
             </nav>
 
             <div class="container-fluid px-4">
              
 
    <div class="row my-5">
-<h3 class="fs-4 mb-3">ADMINER</h3>
+<h3 class="fs-4 mb-3">Adminer</h3>
+  <div>
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="adminpagesacreateacc">Create Admin</a>
+  </div>
+</nav>
+</div> 
+<br>
+<p>table of admin accounts</p>
+<br>
 
-  <h1>Hello  <%= rows[0].adminusername%> </h1>
-  <h3>Your welcome to the admins dashboard</h3>
-<h4> feel free to tour the Admin panel </h4>
+
+
+
+
+    <div class="col table-responsive">
+ <table class="table bg-white rounded shadow-sm  table-hover">
+       <thead>
+          <tr>
+     <th scope="col"> Admin id</th>
+     
+        <th scope="col">Admin username</th>
+
+      <th scope="col"> Admin password</th>
+
+      <th scope="col">Admin status</th>
+
+      <th scope="col">date created</th>
+
+    
+       
+         
+    </tr>
+                            </thead>
+           <tbody>
+<% if(rows.length > 0){  
+var id = 1;
+  rows.forEach( (row) => {
+  
+%>
+       <tr>
+
+        <th scope="row"><%= id%></th>
+
+       <td><%= row.adminusername %></td>
+
+      <td><%= row.adminpassword %></td>
+
+      <td><%= row.adminstatus %></td>
+
+      <td><%= row.datecreated %></td>
+      
+     
+
+    </tr>
+    
+<%  id++; }) }else{%>
+<div> THERE IS NO DATA TO PRESENT</div>
+
+ <% }%>
+    
+    
+       
+     </tbody>
+  </table>
+   </div>  
+                
+                
+                
+                
+                
+                
                 
                 </div>
 

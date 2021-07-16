@@ -3,7 +3,7 @@
  <head>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Sidebar menu With Sub-menus | Using HTML, CSS & JQuery</title>
+   
  <!--  <link rel="stylesheet" href="style.css"> -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-    <title>TFAILED</title>
+    <title>BRANCHES</title>
    
     <style>
      
@@ -186,8 +186,8 @@ height:1000px;
              <a class="navbar-brand" href="tfailed">Failed Devices</a>
          </div>
        </div>
-     
-  <div class="item"><a href="technicianbranchscope"><i class="fas fa-angle-right"></i>Branch Scope</a></div>
+       
+   <div class="item"><a href="technicianbranchscope"><i class="fas fa-angle-right"></i>Branch Scope</a></div>
      
        <div class="item">
          <a class="sub-btn"><i class="fas fa-cogs"></i>RECORDS<i class="fas fa-angle-right dropdown"></i></a>
@@ -203,19 +203,24 @@ height:1000px;
      
   <div class="maincontainer" style="color:white; padding-top:50px; margin-left:15%; margin-right:10%;">
   
-  <h1> FAILED devices page</h1> <br>
+  <h1> Branch Scope page</h1> <br>
        <div class="alert alert-primary" role="alert">
   <p> <%= locals.message ? message : 'welcome'%></p>
 </div>
 <br>
 <div style="display:flex; justify-content:center;">
-<span style="margin-right:30px;"><a class="btn btn-primary" href="tfailed">back</a></span>
+<span style="margin-right:30px;"><a class="btn btn-primary" href="technicianbranchscope">back</a></span>
 </div>
 <br>
 
-<nav class="navbar navbar-light ">
-  <form method="post" action="tfailedsearch" class="form-inline">
+<nav class="navbar navbar-light bg-light">
+  
+<form method="post" action="tbranchsearch" class="form-inline">
+  
    <input name="search" class="form-control mr-sm-2" type="text" placeholder="Search" >
+   
+   <input type="text" name="branchid" value="<%=branchid %>" hidden>
+   
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
   </form>
 </nav>
@@ -235,23 +240,23 @@ height:1000px;
 
       <th scope="col">customer id</th>
 
-      <th scope="col">customer first name</th>
+ <th scope="col">customer first name</th>
+  <th scope="col">customer last name</th>
 
-      <th scope="col">customer last name</th>
+<th scope="col">customer contact</th>
 
-      <th scope="col">customer contact</th>
-
-      <th scope="col">customer email</th>
+<th scope="col">customer email</th>
       
-      <th scope="col">device name</th>
-      <th scope="col">problem description</th>
-  <th scope="col">warrant status</th>
-      <th scope="col">date created</th>
-    <th scope="col">device status</th>
-    <th scope="col">total spare price</th>
-    
-    
-      <th scope="col">repair status</th>
+<th scope="col">device name</th>
+<th scope="col">problem description</th>
+  <th scope="col">warrant status</th> 
+  <th scope="col">technicianfname</th> 
+  <th scope="col">technicianlname</th> 
+  <th scope="col">technician email</th> 
+  <th scope="col">technician contact</th> 
+  <th scope="col">date created</th>
+<th scope="col">device status</th>
+<th scope="col">total spare price</th>
       
     </tr>
 
@@ -279,10 +284,17 @@ var id = 1;
       <td><%= row.devicename%></td>
       <td><%= row.customercomment%></td>
       <td><%= row.warrant%></td>
-      <td><%= row.datecreated%></td>
+      
+      <td><%= row.technicianfname%></td>
+      <td><%= row.technicianlname%></td>
+  <td><%= row.techniciancontact%></td>
+      <td><%= row.technicianemail%></td>
+      
+      
+       <td><%= row.datecreated%></td>
          <td><%= row.devicestatus%></td>
   <td><%= row.devicetotalcharge%></td>
-      <td>Repare failed</td>
+    
     </tr>
 
 <%  id++; }) }else{%>

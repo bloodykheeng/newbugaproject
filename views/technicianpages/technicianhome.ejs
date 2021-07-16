@@ -3,8 +3,8 @@
  <head>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Sidebar menu With Sub-menus | Using HTML, CSS & JQuery</title>
- <!--  <link rel="stylesheet" href="style.css"> -->
+  
+
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
   
@@ -26,17 +26,28 @@
  font-family: "Poppins", sans-serif;
 }
 
+#mydiv{
+  
+  background:url("images/blackkeyboard.jpeg");
+min-height: 100%;
+min-width: 100%;
+background-size: cover;
+ background-position: center;
+z-index:-1;
+ position: absolute;
+ opacity:0.2;
+}
+
 body{
- min-height: 100vh;
+ 
  /* background: url(bg.jpg)no-repeat; */
  background:black;
- background-size: cover;
- background-position: center;
+ 
 }
 
 .side-bar{
  background: rgba(255, 255, 255, 0.1);
- backdrop-filter: blur(15px);
+ backdrop-filter: blur(200px);
  width: 290px;
  height: 100vh;
  position: fixed;
@@ -110,9 +121,9 @@ body{
 }
 
 .menu-btn{
- position: absolute;
+ position:fixed;
  color: #fff;
- font-size: 20px;
+ font-size: 40px;
  margin: 25px;
  cursor: pointer;
 }
@@ -138,16 +149,26 @@ body{
    line-height: 60px;
  }
 }
-tr{
-      white-space: nowrap;
-     }
+      
+            tr{ 
+white-space: nowrap;
+}
+
+.table{
+  max-height:100%;
+}
+.table-responsive{
+height:1000px;
+  }
+
+
    </style>
    
  </head>
  <body>
-
+<div id="mydiv"></div>
    <div class="menu-btn">
-     <i class="fas fa-bars"></i>
+     <i width="50px" class="fas fa-bars"></i>
    </div>
    <div class="side-bar">
      <div class="close-btn">
@@ -163,40 +184,59 @@ tr{
              <a class="navbar-brand" href="tfailed">Failed Devices</a>
          </div>
        </div>
-       <div class="item"><a href="#"><i class="fas fa-th"></i>Forms</a></div>
+    
+  <div class="item"><a href="technicianbranchscope"><i class="fas fa-angle-right"></i>Branch Scope</a></div>
+    
        <div class="item">
          <a class="sub-btn"><i class="fas fa-cogs"></i>RECORDS<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-           <a class="navbar-brand" href="customercreateacc">CREATE CUSTOMER RECORD</a>
+           <a class="navbar-brand" href="customercreateacc">CUSTOMER RECORD</a>
           
          </div>
        </div>
-       <div class="item"><a href="#"><i class="fas fa-info-circle"></i>About</a></div>
+       <div class="item"><a href="tlogout"><i class="fas fa-info-circle"></i>logout</a></div>
      </div>
    </div>
-   <!--<section class="main"> -->
+   <!-- <section class="main"> -->
      
-  <div class="container">
+  <div class="maincontainer" style="color:white; padding-top:50px; margin-left:10%; margin-right:10%;">
   
-
-<h1 style="color:white; padding-top:50px;">technicians page</h1> <br>
+<div style="text-align:center">
+<h1 style="color:white;">Technicians Home page</h1> 
+</div>
+<br>
        <div class="alert alert-primary" role="alert">
   <p> <%= locals.message ? message : 'welcome'%></p>
 </div>
 <br>
 
+<div style="display:flex; justify-content:center;">
+<span style="margin-right:30px;"><a class="btn btn-primary" href="technicianhome">back</a></span>
+
+</div>
+<br>
+
 <nav class="navbar navbar-light ">
-  <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+  <form method="post" action="thomesearch" class="form-inline">
+   <input name="search" class="form-control mr-sm-2" type="text" placeholder="Search" >
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
   </form>
 </nav>
-  
+    
+ <br>
+
+
+
+
+
+
+  <br>
+  <p>List of virgin devices</p>
   
 
 <div  class="table-responsive">
  <table class="table" style="color:white;">
-  <caption>List of users</caption>
+  <caption>List of My Customers and there devices</caption>
   <thead>
 
     <tr>
@@ -212,6 +252,7 @@ tr{
       <th scope="col">customer email</th>
       
       <th scope="col">devicce name</th>
+<th scope="col">problem description</th>
       <th scope="col">warrant status</th>
       <th scope="col">date created</th>
       <th scope="col">delete spare</th>
@@ -241,6 +282,7 @@ var id = 1;
       <td><%= row.customercontact %></td>
       <td><%= row.email%></td>
       <td><%= row.devicename%></td>
+      <td><%= row.customercomment%></td>
       <td><%= row.warrant%></td>
       <td><%= row.datecreated%></td>
           <td>delete spare</td>
@@ -248,7 +290,7 @@ var id = 1;
     <form method="post" action="technicianaddspare">
   <input type="text" name="deviceid" hidden value="<%= row.deviceid %>">
     <input type="text" name="customerid" hidden value="<%= row.customerid %>">
- <button type="submit">choose spare</button>
+ <button class="btn btn-outline-primary" type="submit">choose spare</button>
       </form>
          </td>
     </tr>

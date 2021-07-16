@@ -15,7 +15,7 @@
       rel="stylesheet">
     <title>TPENDING</title>
    
-   <style>
+    <style>
      
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
@@ -26,17 +26,28 @@
  font-family: "Poppins", sans-serif;
 }
 
+#mydiv{
+  
+  background:url("images/blackkeyboard.jpeg");
+min-height: 100%;
+min-width: 100%;
+background-size: cover;
+ background-position: center;
+z-index:-1;
+ position: absolute;
+ opacity:0.2;
+}
+
 body{
- min-height: 100vh;
+ 
  /* background: url(bg.jpg)no-repeat; */
  background:black;
- background-size: cover;
- background-position: center;
+ 
 }
 
 .side-bar{
  background: rgba(255, 255, 255, 0.1);
- backdrop-filter: blur(15px);
+ backdrop-filter: blur(200px);
  width: 290px;
  height: 100vh;
  position: fixed;
@@ -110,9 +121,9 @@ body{
 }
 
 .menu-btn{
- position: fixed;
+ position:fixed;
  color: #fff;
- font-size: 20px;
+ font-size: 40px;
  margin: 25px;
  cursor: pointer;
 }
@@ -142,11 +153,21 @@ body{
             tr{ 
 white-space: nowrap;
 }
-     
+
+.table{
+  max-height:100%;
+}
+.table-responsive{
+height:1000px;
+  }
+
+
    </style>
    
  </head>
  <body>
+   
+<div id="mydiv"></div>
 
    <div class="menu-btn">
      <i class="fas fa-bars"></i>
@@ -165,34 +186,45 @@ white-space: nowrap;
              <a class="navbar-brand" href="tfailed">Failed Devices</a>
          </div>
        </div>
-       <div class="item"><a href="#"><i class="fas fa-th"></i>Forms</a></div>
+    
+  <div class="item"><a href="technicianbranchscope"><i class="fas fa-angle-right"></i>Branch Scope</a></div>
+    
        <div class="item">
          <a class="sub-btn"><i class="fas fa-cogs"></i>RECORDS<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
-           <a class="navbar-brand" href="customercreateacc">CREATE CUSTOMER RECORD</a>
+           <a class="navbar-brand" href="customercreateacc">CUSTOMER RECORD</a>
           
          </div>
        </div>
-       <div class="item"><a href="#"><i class="fas fa-info-circle"></i>About</a></div>
+       <div class="item"><a href="tlogout"><i class="fas fa-info-circle"></i>logout</a></div>
      </div>
    </div>
    <!--<section class="main"> -->
      
-  <div class="container" padding-top:50px; style="color:white;">
+  <div class="maincontainer" style="color:white; padding-top:50px; margin-left:15%; margin-right:10%; height:100%;">
   
  
- <h1>technician ready devices page</h1> <br>
+ <h1>Ready devices page</h1> <br>
 <div class="alert alert-primary" role="alert">
   <p> <%= locals.message ? message : 'welcome'%></p>
 </div>
 <br>
-<nav class="navbar navbar-light">
-  <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+<div style="display:flex; justify-content:center;">
+<span style="margin-right:30px;"><a class="btn btn-primary" href="tready">back</a></span>
+
+</div>
+<br>
+
+<nav class="navbar navbar-light ">
+  <form method="post" action="treadysearch" class="form-inline">
+   <input name="search" class="form-control mr-sm-2" type="text" placeholder="Search" >
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
   </form>
 </nav>
-  
+    
+ <br>
+
+
   
 
 <div  class="table-responsive">
@@ -212,11 +244,14 @@ white-space: nowrap;
 
       <th scope="col">customer email</th>
       
-      <th scope="col">devicce name</th>
+      <th scope="col">device name</th>
+      <th scope="col">problem description</th>
       <th scope="col">warrant status</th>
       <th scope="col">date created</th>
       <th scope="col">device status</th>
-      <th scope="col">repair complete</th>
+      <th scope="col">total spare price</th>
+      
+    
       <th scope="col">repair success</th>
       
     </tr>
@@ -243,17 +278,12 @@ var id = 1;
       <td><%= row.customercontact %></td>
       <td><%= row.email%></td>
       <td><%= row.devicename%></td>
+      <td><%= row.customercomment%></td>
       <td><%= row.warrant%></td>
       <td><%= row.datecreated%></td>
          <td><%= row.devicestatus%></td>
-       <td>
-    <form method="post" action="#">
-  <input type="text" name="deviceid" hidden value="<%= row.deviceid %>">
-    <input type="text" name="customerid" hidden value="<%= row.customerid %>">
- <button type="submit">Add spare</button>
-      </form>
-         </td>
-             <td>Repare success</td>
+  <td><%= row.devicetotalcharge%></td>
+     <td>Repare success</td>
     </tr>
 
 <%  id++; }) }else{%>

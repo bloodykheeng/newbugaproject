@@ -41,11 +41,30 @@ var compare = bcrypt.compare(password, rows[0].adminpassword)
    // console.log(pcompare)
 	if(pcompare == true){ 
  req.session.adminuser = rows[0].adminid
- 
- console.log(" the session id is "+ req.session.adminuser )
- res.render('admin',{rows:rows })
- 
- 
+var myrows = rows
+ if(req.session.adminuser){
+   
+   var sql = "update admins set adminstatus ='online' where adminid = ?"
+   connection.query(sql,[rows[0].adminid],(err,rows)=>{ 
+     if(err){
+       console.log("failed to update admin status")
+       console.log(err.message)
+     }else{
+console.log(" the session id is "+ req.session.adminuser )
+ res.render('admin',{rows:myrows })
+     } })
+  
+ }else{ 
+    
+sql = "update admins set adminstatus ='offline' where adminid = ?"
+   
+connection.query(sql,[rows[0].adminid],(err,rows)=>{ 
+     if(err){
+       console.log("failed to update admin status")
+       console.log(err.messag) }
+   })
+    
+  }
 }else{ 
 	res.render('adminlogin',{ message :' try again with a correct password'})
 	
@@ -99,7 +118,7 @@ if(rows.length === 0){
      const hashedfunction = async (hash)=>{
   	try{
    const hashpassword = await  hash
-   var sql="insert into admins(adminid,adminusername,adminpassword) values(?,?,?)"
+   var sql="insert into admins(adminid,adminusername,adminpassword,datecreated) values(?,?,?,now())"
    
 connection.query(sql,[id,username,hashpassword] , (err, rows)=>{
 if(err){
@@ -123,6 +142,42 @@ res.render('adminpages/admincreateacc',{message:"The username : "+username+" has
  
 }catch(err){ console.log(err.message) }
  } 
+ 
+ 
+ 
+ 
+ 
+ /*admins create acc get */
+
+exports.adminpagesacreateacc = (req,res)=>{ 
+if(!req.session.adminuser){
+res.status(500).send()
+ }else{ 
+
+	//console.log(rows)
+res.render('adminpages/admincreateacc')
+}}
+
+
+
+/* admin accounts get */
+
+exports.adminpagesadminaccounts = (req,res)=>{ 
+if(!req.session.adminuser){
+res.status(500).send()
+ }else{ 
+var sql="select * from admins"
+	//console.log(rows)
+	connection.query(sql,(err,rows)=>{
+	  if(err){
+	    console.log(err.message)
+	    console.log("failed to query admins")
+	  }else{
+	    
+res.render('adminpages/adminaccounts',{rows:rows})
+	  }	})
+}}
+ 
  
  
  
@@ -313,6 +368,7 @@ res.render('adminpages/sparesupload',{message:"The spare : "+sparename+" already
  
  
  /*admin spares table*/
+ 
  exports.adminsparestable = (req,res)=>{ 
 if(!req.session.adminuser){
 res.status(500).send()
@@ -328,6 +384,7 @@ res.render('adminpages/spares',{rows : rows })
  })
 
 }
+
 }
 
 /* Admin pages spares sort*/
@@ -387,7 +444,7 @@ res.render('adminpages/search',{rows : rows })
 if(!req.session.adminuser){
 res.status(500).send()
  }else{ 
-var sql = "select spares.sparename, devicetable.devicename, customertable.customerfname, customertable.customerlname, technicians.technicianfname, technicians.technicianlname, usedspares.datecreated, branches.branchname from usedspares inner join spares on usedspares.spareid = spares.spareid inner join devicetable on usedspares.deviceid = devicetable.deviceid inner join customertable on usedspares.customerid = customertable.customerid inner join technicians on usedspares.technicianid = technicians.technicianid inner join branches on technicians.branchid = branches.branchid "
+var sql = "select spares.spareid, spares.sparename, devicetable.devicename, customertable.customerfname, customertable.customerlname, technicians.technicianfname, technicians.technicianlname, usedspares.datecreated, branches.branchname,usedspares.quantity from usedspares inner join spares on usedspares.spareid = spares.spareid inner join devicetable on usedspares.deviceid = devicetable.deviceid inner join customertable on usedspares.customerid = customertable.customerid inner join technicians on usedspares.technicianid = technicians.technicianid inner join branches on technicians.branchid = branches.branchid "
 connection.query(sql,(err,rows)=>{
 if(err){ console.log("failed to query database")}
 else{
@@ -415,7 +472,7 @@ res.status(500).send()
  }else{
  	var branchname = rows[0].branchname
 // var sql ="select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant, technicians.branchid , branches.branchname from customertable inner join devicetable on customertable.customerid = devicetable.customerid left join customeremail on customeremail.customerid = customertable.customerid inner join technicians on customertable.technicianid = technicians.technicianid inner join branches on technicians.branchid = branches.branchid  where technicians.branchid = ? "
- var sql = "select spares.sparename, devicetable.devicename, customertable.customerfname, customertable.customerlname, technicians.technicianfname, technicians.technicianlname, usedspares.datecreated, branches.branchname from usedspares inner join spares on usedspares.spareid = spares.spareid inner join devicetable on usedspares.deviceid = devicetable.deviceid inner join customertable on usedspares.customerid = customertable.customerid inner join technicians on usedspares.technicianid = technicians.technicianid inner join branches on technicians.branchid = branches.branchid   where technicians.branchid = ?"
+ var sql = "select spares.spareid,spares.sparename, devicetable.devicename, customertable.customerfname, customertable.customerlname, technicians.technicianfname, technicians.technicianlname, usedspares.datecreated, branches.branchname, usedspares.quantity from usedspares inner join spares on usedspares.spareid = spares.spareid inner join devicetable on usedspares.deviceid = devicetable.deviceid inner join customertable on usedspares.customerid = customertable.customerid inner join technicians on usedspares.technicianid = technicians.technicianid inner join branches on technicians.branchid = branches.branchid   where technicians.branchid = ?"
 
 connection.query(sql,[branchid],(err,rows)=>{
 if(err){ console.log("failed to query database")}
@@ -505,7 +562,7 @@ exports.adminpagescustomer= (req,res)=>{
 if(!req.session.adminuser){
 res.status(500).send()
  }else{ 
-var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant, technicians.branchid , branches.branchname from customertable inner join devicetable on customertable.customerid = devicetable.customerid left join customeremail on customeremail.customerid = customertable.customerid inner join technicians on customertable.technicianid = technicians.technicianid inner join branches on technicians.branchid = branches.branchid"
+var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant, technicians.branchid , branches.branchname, customertable.customercomment from customertable inner join devicetable on customertable.customerid = devicetable.customerid left join customeremail on customeremail.customerid = customertable.customerid inner join technicians on customertable.technicianid = technicians.technicianid inner join branches on technicians.branchid = branches.branchid"
 connection.query(sql,(err,rows)=>{
 if(err){ console.log("failed to query database")}
 else{
@@ -529,7 +586,7 @@ res.status(500).send()
  }else{
  	var branchname = rows[0].branchname
 
-var sql ="select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant, technicians.branchid , branches.branchname from customertable inner join devicetable on customertable.customerid = devicetable.customerid left join customeremail on customeremail.customerid = customertable.customerid inner join technicians on customertable.technicianid = technicians.technicianid inner join branches on technicians.branchid = branches.branchid  where technicians.branchid = ? "
+var sql ="select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant, technicians.branchid , branches.branchname, customertable.customercomment from customertable inner join devicetable on customertable.customerid = devicetable.customerid left join customeremail on customeremail.customerid = customertable.customerid inner join technicians on customertable.technicianid = technicians.technicianid inner join branches on technicians.branchid = branches.branchid  where technicians.branchid = ? "
 connection.query(sql,[branchid],(err,rows)=>{
 if(err){ console.log("failed to query database")}
 else{
@@ -588,4 +645,115 @@ res.render('adminpages/supervisors',{rows : rows, message:" supervisor "+usernam
  })
 }}
  
+ 
+ 
+ /*log out */
+ 
+ 
+exports.logout = (req,res)=>{
+  if(!req.session.technicianuser){
+  res.redirect("/")
+    //res.status(500).send("someone is trying tohack us")
+    
+  }else{
+    
+sql = "update admins set adminstatus ='offline' where adminid = ?"
+   
+connection.query(sql,[req.session.adminuser],(err,rows)=>{ 
+     if(err){
+       console.log("failed to update admin status")
+       console.log(err.messag) }
+       else{ 
+req.session.destroy(
+    function(err){
+      if(err){
+      console.log("failed to log out")
+      res.send('error')
+     }else{
+      res.redirect("/")
+       } })
+      } })
+    }}
+   
+   
+   
+   
+   
+   /* quantity update*/
+   exports.adminupdatequantity = (req,res)=>{
+  if(!req.session.adminuser){
+res.status(500).send()
+ }else{ 
+   var quantity = req.body.quantity
+   var spareid = req.body.spareid
+   
+var sql = "update spares set spareamount = ? where spareid = ?"
+connection.query(sql,[quantity,spareid],(err,rows)=>{
+if(err){ console.log("failed to query database quantity update")}
+else{
+	//console.log(rows)
+	
+var sql = "select * from spares inner join branches on spares.branchid = branches.branchid"
+connection.query(sql,(err,rows)=>{
+if(err){ console.log("failed to query database")}
+else{
+	
+res.render('adminpages/spares',{rows : rows,message:"quantity updated" })
+ } })
+  
+}
+})}
+}
+
+
+
+/* delete spare */
+
+exports.spareremove= (req,res)=>{ 
+if(!req.session.adminuser){
+res.status(500).send()
+ }else{ 
+ 	var spareid = req.body.spareid
+ 	
+var sql = "delete from spares where spareid = ?"
+connection.query(sql,[spareid],(err,rows)=>{
+if(err){ console.log("failed to query database delete spare")}
+else{
+
+var sql = "select * from spares inner join branches on spares.branchid = branches.branchid"
+connection.query(sql,(err,rows)=>{
+if(err){ console.log("failed to query database")}
+else{
+	
+res.render('adminpages/spares',{rows : rows,message:"spare deleted succesfully" })
+ } })
+}
+ })
+}}
+ 
+ 
+ /* delete technician */
+ 
+exports.deletetechnician = (req,res)=>{ 
+if(!req.session.adminuser){
+res.status(500).send()
+ }else{ 
+var technicianid = req.body.technicianid
+ 	
+var sql = "delete from technicians where technicianid = ?"
+connection.query(sql,[technicianid],(err,rows)=>{
+if(err){ console.log("failed to query database  technician")}
+else{
+
+var sql = "select * from technicians inner join branches on technicians.branchid = branches.branchid"
+connection.query(sql,(err,rows)=>{
+if(err){ console.log("failed to query database")}
+else{
+	//console.log(rows)
+res.render('adminpages/technician',{rows : rows,message:"technician deleted" })
+ }
+ })
+}
+ })
+}}
  

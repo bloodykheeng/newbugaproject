@@ -20,10 +20,20 @@ res.render('supervisorlogin')
 /* index page end */
 /*admin page */
 
-router.get("/adminspares", admincontroller.adminsparestable)
+router.get("/adminpagesspares", admincontroller.adminsparestable)
+
 router.post("/adminsortspares", admincontroller.adminsparessort)
+
+router.post("/adminupdatequantity", admincontroller.adminupdatequantity)
+
 router.post("/adminsorttechnicians", admincontroller.admintechnicianssort)
+
 router.post("/removesupervisor", admincontroller.supervisorremove)
+
+router.post("/removespare", admincontroller.spareremove)
+
+router.post("/deletetechnician", admincontroller.deletetechnician)
+
 router.post("/adminsortusedspares", admincontroller.sortusedspares)
 
 router.post("/adminsortcustomers", admincontroller.admincustomerssort)
@@ -33,14 +43,14 @@ router.get("/adminsupervisors", admincontroller.adminpagessupervisors)
 
 router.get("/adminhome", admincontroller.adminhome)
 
-
+router.get("/logout", admincontroller.logout)
 
 
 
 
 /* adminpages folder */
 
-router.get("/adminpagesspares", admincontroller.adminsparestable)
+
 router.get("/adminpagesusedspare", admincontroller.adminusedspare)
 
 router.get("/adminpagestechnicians", admincontroller.adminpagestechnician)
@@ -54,9 +64,9 @@ router.get("/adminpagescustomers", admincontroller.adminpagescustomer )
 router.get("/adminpagessupervisors", admincontroller.adminpagessupervisors)
 
 
-router.get("/adminpagesacreateacc", (req,res)=>{ 
-res.render('adminpages/admincreateacc')
-})
+router.get("/adminpagesacreateacc",admincontroller.adminpagesacreateacc)
+
+router.get("/adminpagesadminaccounts",admincontroller.adminpagesadminaccounts)
 
 router.get("/adminpagestctoken", admincontroller.adminpagestctoken)
 
@@ -66,23 +76,20 @@ res.render('adminpages/sparesupload')
 
 /*adminpages folder end */
 
-/* admin login page */
-router.get("/admin", (req,res)=>{ 
-res.render("admin")
-})
+
 /* admin login page end  */
 
 /* supervisor loginvpagev*/
 router.get("/supervisorlogin", (req,res)=>{ 
 res.render("supervisorlogin")
 })
-router.get("/supervisor", (req,res)=>{ 
-res.render("supervisorpages/supervisor")
-})
+
 
 /* supervisor login page end */
 
 /*technician login page */
+router.get("/tlogout", controller.tlogout)
+
 router.get("/technicianhome", controller.technicianhome)
 
 router.get("/tpending", controller.tpending)
@@ -93,13 +100,18 @@ router.get("/tfailed", controller.tfailed)
 
 router.get("/tready", controller.tready)
 
-router.get("/tfailed", (req,res)=>{ 
-res.render("technicianpages/tfailed")
-})
+router.post("/thomesearch" ,controller.thomesearch)
+router.post("/tpendingsearch" ,controller.tpendingsearch)
+router.post("/treadysearch" ,controller.treadysearch)
+router.post("/tfailedsearch" ,controller.tfailedsearch)
 
-router.get("/tready", (req,res)=>{ 
-res.render("technicianpages/tready")
-})
+router.get("/technicianbranchscope" ,controller.tbranchscope)
+
+router.post("/tbranchsearch" ,controller.tbranchsearch)
+
+router.post("/technicianviewspares" ,controller.tviewspares)
+
+
 
 /* technician login page end */
 
@@ -146,6 +158,18 @@ router.post("/adminpagessearchspare",admincontroller.adminsearchspare)
 router.post("/technicianaddspare",controller.technicianaddspare)
 
 router.post("/technicianspares",controller.technicianspares)
+
+
+
+/* supervisor routes */
+
+router.post("/supervisorsearch",controller.supervisorsearch)
+
+router.get("/supervisorlogout",controller.slogout)
+
+router.get("/supervisorhome",controller.supervisorhome )
+
+
 
 module.exports= router
       

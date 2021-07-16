@@ -13,12 +13,24 @@
  <link>
     <style type="text/css">
     
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+*{
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ font-family: "Poppins", sans-serif;
+}
+
+    
     :root {
   --main-bg-color: #009d63;
   --main-text-color: #009d63;
   --second-text-color: #bbbec5;
   --second-bg-color: #c1efde;
 }
+
+
 
 .primary-text {
   color: var(--main-text-color);
@@ -124,9 +136,9 @@ tr{
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i
                     class="fas fa-user-secret me-2"></i>Buga Tech</div>
             <div class="list-group list-group-flush my-3">
-                <a href="adminhome" class="list-group-item list-group-item-action bg-transparent second-text active"><i
+                <a href="adminhome" class="list-group-item list-group-item-action bg-transparent second-text "><i
                         class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
-                <a href="adminspares" style="background:green;" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="adminpagesspares" style="background:green;" class="list-group-item list-group-item-action bg-transparent second-text active fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Manage Spares</a>
                 <a href="admintechnicians" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Manage Technicians</a>
@@ -135,7 +147,10 @@ tr{
                 <a href="adminsupervisors" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-chart-line me-2"></i>Manage Supervisors</a>
              
-                <a href="#" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
+<a href="adminpagesadminaccounts" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+   <i class="fas fa-chart-line me-2"></i>Manage Admins</a>
+             
+                <a href="logout" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
                         class="fas fa-power-off me-2"></i>Logout</a>
             </div>
         </div>
@@ -149,27 +164,7 @@ tr{
                     <h2 class="fs-2 m-0">Dashboard</h2>
                 </div>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i> Buga
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
-                                <li><a class="dropdown-item" href="#">Settings</a></li>
-                                <li><a class="dropdown-item" href="#">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+             
             </nav>
 
             <div class="container-fluid px-4">
@@ -216,7 +211,7 @@ tr{
 
 <div  style = "height:1000px; " class="table-responsive">
 
- <table style = "height:500px; "class="table">
+ <table style = "height:500px;" class="table bg-white rounded shadow-sm  table-hover">
 
   <caption>List of used spares</caption>
 
@@ -229,6 +224,8 @@ tr{
   <th scope="col">branch name</th>
          
       <th scope="col">spare name</th>
+      
+   <th scope="col">used quantity</th>
 
       <th scope="col">device name</th>
 
@@ -258,7 +255,8 @@ var id = 1;
  
   <th scope="row"><%= row.branchname%></th>
       
-  <th scope="row"><%= row.sparename%></th>
+<th scope="row"><%= row.sparename%></th>
+<th scope="row"><%= row.quantity%></th>
 
       <td><%= row.devicename %></td>
 
