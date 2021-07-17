@@ -18,7 +18,7 @@
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
-    "mysql": "github:felixge/node-mysql",
+    "mysql": "github:mysqljs/mysql",
     "uuid": "^8.3.2"
   }
 }
