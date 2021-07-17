@@ -3,10 +3,20 @@
   const mysql = require('mysql')
 const { v4 : uuidv4} = require("uuid")
   const connection= mysql.createConnection({
+    
+host     : process.env.OPENSHIFT_MYSQL_DB_HOST  ||  "localhost" ,
+  user     : process.env.OPENSHIFT_MYSQL_DB_USERNAME ||  "root",
+  password : process.env.OPENSHIFT_MYSQL_DB_PASSWORD || "",
+  port     : process.env.OPENSHIFT_MYSQL_DB_PORT || "3306",
+  database : process.env.OPENSHIFT_APP_NAME || "bugatech"
+    
+    
+   /* 
   host:"localhost",
   user:"root",
   password:"",
   database:"bugatech"
+  */
 })
 
  
