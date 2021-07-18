@@ -9,7 +9,7 @@ const app = express()
 const path = require("path")
 
 
-const port = process.env.PORT || process.env.MYSQL_SERVICE_POR || 3000;
+const port = process.env.PORT || process.env.MYSQL_SERVICE_PORT ;
 
 app.use(bodyparser.urlencoded( { extended: false  }))
 app.use(bodyparser.json())
