@@ -37,8 +37,9 @@ res.render('adminlogin',{message:'please u dont leave any of the inputs empty' }
 var sql="select * from admins where adminusername = ?" 
 connection.query(sql, [username] , (err, rows)=>{
 if(err){
-  throw error
+  
   console.log("failed to query the database")
+  console.log(err.message)
   }else{
   	console.log(rows.length)
 if(rows.length !== 1){
