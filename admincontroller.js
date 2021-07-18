@@ -3,11 +3,10 @@ var bcrypt = require('bcryptjs');
 const { v4 : uuidv4} = require("uuid")
   const connection = mysql.createConnection({
     
-host     : process.env.MYSQL_SERVICE_HOST  ||  "localhost" ,
-  user     : process.env.OPENSHIFT_MYSQL_DB_USERNAME ||  "root",
-  password : process.env.OPENSHIFT_MYSQL_DB_PASSWORD || "",
-  port     : process.env.OPENSHIFT_MYSQL_DB_PORT || "3306",
-  database : process.env.OPENSHIFT_APP_NAME || "bugatech"
+host  : process.env.MYSQL_SERVICE_HOST  ||  "localhost" ,
+  user     : "root",
+  password : "",
+  database :"bugatech"
     
     
     /*
