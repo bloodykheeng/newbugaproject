@@ -5,13 +5,14 @@ const { v4 : uuidv4} = require("uuid")
  const connection = 
   mysql.createConnection({
     
-host  : process.env.MYSQL_SERVICE_HOST,
+host  : "localhost",
   user     : "root",
   password : "",
   database : "bugatech"
     
     
    /* 
+process.env.MYSQL_SERVICE_HOST
   host:"localhost",
   user:"root",
   password:"",
