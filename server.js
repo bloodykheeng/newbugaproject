@@ -1,6 +1,6 @@
 const express = require('express')
 const bodyparser = require('body-parser')
-const mysql = require('mysql')
+const mysql = require('mysql2;')
 const router = require('./routes')
 const {v4:uuidv4} = require("uuid")
 const session = require('express-session')
