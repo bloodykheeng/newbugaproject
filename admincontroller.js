@@ -3,7 +3,7 @@ var bcrypt = require('bcryptjs');
 const { v4 : uuidv4} = require("uuid")
   const connection = mysql.createConnection({
     
-  host   :  172.30.113.189,
+  host  : process.env.MYSQL_SERVICE_HOST,
   user     : "root",
   password : "",
   database :"bugatech"
