@@ -3,17 +3,19 @@ var bcrypt = require('bcryptjs');
 const { v4 : uuidv4} = require("uuid")
   const connection = mysql.createConnection({
     
+
+  host : "localhost",
+  user     : "root",
+  password : "",
+  database : "bugatech"
+    
+    /*
   host : "172.30.72.177",
   user     : "root",
   password : "1234",
   database : "bugatech"
+    */
     
-    /*
-  host:"localhost",
-  user:"bloody",
-  password:"1234",
-  database:"bugatech"
-  */
 })
 
 
@@ -453,12 +455,13 @@ res.render('adminpages/search',{rows : rows })
 if(!req.session.adminuser){
 res.status(500).send()
  }else{ 
+   var branchname;
 var sql = "select spares.spareid, spares.sparename, devicetable.devicename, customertable.customerfname, customertable.customerlname, technicians.technicianfname, technicians.technicianlname, usedspares.datecreated, branches.branchname,usedspares.quantity from usedspares inner join spares on usedspares.spareid = spares.spareid inner join devicetable on usedspares.deviceid = devicetable.deviceid inner join customertable on usedspares.customerid = customertable.customerid inner join technicians on usedspares.technicianid = technicians.technicianid inner join branches on technicians.branchid = branches.branchid "
 connection.query(sql,(err,rows)=>{
 if(err){ console.log("failed to query database")}
 else{
 	//console.log(rows)
-res.render("adminpages/usedspares",{ rows : rows })
+res.render("adminpages/usedspares",{ rows : rows , branchname:branchname })
  }
 
  })
@@ -526,12 +529,13 @@ res.render('admin',{rows : rows })
 if(!req.session.adminuser){
 res.status(500).send()
  }else{ 
+   var branchname;
 var sql = "select * from technicians inner join branches on technicians.branchid = branches.branchid"
 connection.query(sql,(err,rows)=>{
 if(err){ console.log("failed to query database")}
 else{
 	//console.log(rows)
-res.render('adminpages/technician',{rows : rows })
+res.render('adminpages/technician',{rows : rows, branchname:branchname })
  }
  })
 }}
@@ -554,7 +558,7 @@ connection.query(sql,[branchid],(err,rows)=>{
 if(err){ console.log("failed to query database")}
 else{
 	//console.log(rows)
-res.render('adminpages/technician',{rows : rows  })
+res.render('adminpages/technician',{rows : rows, branchname:branchname  })
  }
 
  })
@@ -571,12 +575,13 @@ exports.adminpagescustomer= (req,res)=>{
 if(!req.session.adminuser){
 res.status(500).send()
  }else{ 
+   var branchname;
 var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant, technicians.branchid , branches.branchname, customertable.customercomment from customertable inner join devicetable on customertable.customerid = devicetable.customerid left join customeremail on customeremail.customerid = customertable.customerid inner join technicians on customertable.technicianid = technicians.technicianid inner join branches on technicians.branchid = branches.branchid"
 connection.query(sql,(err,rows)=>{
 if(err){ console.log("failed to query database")}
 else{
 	//console.log(rows)
-res.render('adminpages/customer',{rows : rows })
+res.render('adminpages/customer',{rows : rows, branchname:branchname })
  }
  })
 }}

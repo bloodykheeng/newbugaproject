@@ -269,7 +269,7 @@ var id = 1;
 
 <%  id++ }) }else{%>
 <br>
-<div> THERE IS NO DATA TO PRESENT FOR <%=branchname %> 's BRANCH</div>
+<div> THERE IS NO DATA TO PRESENT FROM <% if(!branchname){ branchname="ANY BRANCH" }%><%=branchname %></div>
 <br>
  <% }%>
     
