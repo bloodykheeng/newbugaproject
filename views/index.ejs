@@ -34,7 +34,7 @@ margin:20px;
  background:url("images/index.jpeg");
  background-position: center;
  background-size:cover;
- width:90%;
+
   }
 
   
@@ -50,20 +50,36 @@ opacity:0.5;
    
     }
     #bodydiv{
+      /*
       display:flex;
       text-align: center;
       flex-direction: column;
       width:100%;
       height:100%;
       justify-content: center;
+      align-items: center;
+      */
+      display:flex;
+border: 1px solid #2d2d2d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:30px;
+    flex-wrap: wrap;  
+  height:100vh;
+  
+ 
+      
     }
  .carddiv{
   justify-content: center;
-   display:flex;
-  flex-direction: column;
-   align-items: center;
-   height:80%;
    padding:20px;
+ }
+ #top{
+   display:flex;
+   flex-direction: column;
+   justify-content: center;
+   
  }
  </style>
  
@@ -71,16 +87,19 @@ opacity:0.5;
   <body>
   <div id="mydiv">
   </div>
-  
+
+   
    <div id="bodydiv">
-   <div>
+     
+  <div id="top">
      <h1>BUGA TECH SERVICE CENTER</h1>
      
-     <h3>choose your fate</h3>
+     <h3>Choose your fate</h3>
      </div>
-     
-     
-     <div class="carddiv">
+  
+<div class="carddiv">
+  
+  
 <div class="card" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">ADMIN PANEL</h5>
