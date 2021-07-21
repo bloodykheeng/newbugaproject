@@ -177,7 +177,7 @@ height:1000px;
        <i class="fas fa-times"></i>
      </div>
      <div class="menu">
-       <div class="item"><a href="technicianhome"><i class="fas fa-desktop"></i>Dashboard</a></div>
+       <div class="item"><a href="technicianhome"><i class="fas fa-desktop"></i>New Devices</a></div>
        <div class="item">
          <a class="sub-btn"><i class="fas fa-table"></i>Tables<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
@@ -209,20 +209,19 @@ height:1000px;
   <p> <%= locals.message ? message : 'welcome'%></p>
 </div>
 <br>
-<div style="display:flex; justify-content:center;">
-<span style="margin-right:30px;"><a class="btn btn-primary" href="tready">back</a></span>
-
-</div>
-<br>
-
+<div style="display:flex; justify-content:space-between;">
+  
 <nav class="navbar navbar-light ">
   <form method="post" action="treadysearch" class="form-inline">
    <input name="search" class="form-control mr-sm-2" type="text" placeholder="Search" >
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
   </form>
 </nav>
-    
- <br>
+  
+<span style="margin-right:30px;"><a class="btn btn-primary" href="tready">refresh</a></span>
+
+</div>
+<br>
 
 
   
@@ -245,6 +244,8 @@ height:1000px;
       <th scope="col">customer email</th>
       
       <th scope="col">device name</th>
+      <th scope="col">device imei</th>
+      <th scope="col">device serial number</th>
       <th scope="col">problem description</th>
       <th scope="col">warrant status</th>
       <th scope="col">date created</th>
@@ -278,6 +279,9 @@ var id = 1;
       <td><%= row.customercontact %></td>
       <td><%= row.email%></td>
       <td><%= row.devicename%></td>
+      
+      <td><%= row.imei%></td>
+      <td><%= row.serialnumber%></td>
       <td><%= row.customercomment%></td>
       <td><%= row.warrant%></td>
       <td><%= row.datecreated%></td>

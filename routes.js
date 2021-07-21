@@ -24,13 +24,19 @@ router.get("/adminpagesspares", admincontroller.adminsparestable)
 
 router.post("/adminsortspares", admincontroller.adminsparessort)
 
+router.get("/outofstock", admincontroller.outofstock)
+
 router.post("/adminupdatequantity", admincontroller.adminupdatequantity)
+
+router.post("/adminupdatequantityoutofstock", admincontroller.adminupdatequantityoutofstock)
 
 router.post("/adminsorttechnicians", admincontroller.admintechnicianssort)
 
 router.post("/removesupervisor", admincontroller.supervisorremove)
 
 router.post("/removespare", admincontroller.spareremove)
+
+router.post("/removespareoutofstock", admincontroller.spareremoveoutofstock)
 
 router.post("/deletetechnician", admincontroller.deletetechnician)
 

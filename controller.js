@@ -4,19 +4,19 @@
 const { v4 : uuidv4} = require("uuid")
  const connection = 
   mysql.createConnection({
-    /*
+    
   host : "localhost",
   user     : "root",
   password : "",
   database : "bugatech"
-  */
+  
 
-
+/*
 host : "172.30.72.177",
   user     : "root",
   password : "1234",
   database : "bugatech"
-
+*/
   
 })
 
@@ -42,7 +42,7 @@ if(!username || !password || !cpassword){
   if( password !== cpassword){ 
 res.render('technicianpages/techniciancreateacc',{message:'please you dint confirm your password well' })
  }else{
-console.log(token)
+//console.log(token)
 var sql = "select * from technicianentrycode where entrycode = ?"
 connection.query(sql,[token],(err,rows)=>{ 
 if(err){
@@ -131,7 +131,7 @@ if(err){
   }else{
   	//console.log(rows.length)
 if(rows.length !== 1){
-  console.log("wrong passord or username")
+  //console.log("wrong passord or username")
 res.render('technicianlogin',{ message :' try again with a correct username or password not one row'})
  }else{
  
@@ -157,7 +157,7 @@ var compare = bcrypt.compare(password,rows[0].technicianpassword)
 if(!req.session.technicianuser){
 res.status(500).send()
  }else{ 
-var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.email = customertable.customerid where customertable.technicianid = ? and devicestatus.devicestatus = ?"
+var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment, deviceimei.imei , deviceserialnumber.serialnumber from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.customerid = customertable.customerid  left join deviceimei on devicetable.deviceid = deviceimei.deviceid left join deviceserialnumber on devicetable.deviceid = deviceserialnumber.deviceid where customertable.technicianid = ? and devicestatus.devicestatus = ? order by customertable.datecreated DESC"
 var technicianid = req.session.technicianuser
 connection.query(sql,[technicianid,"virgindevice"],(err,rows)=>{
 if(err){ console.log("failed to query database")}
@@ -188,7 +188,7 @@ res.status(500).send()
  
  
  
-/* customer create account */
+/* customer create record*/
 
 
       
@@ -226,11 +226,12 @@ if(err){
   if(warranty =="TRUE"){warranty = true }
   else if( warranty == "FALSE"){warranty = false}
   var deviceid = uuidv4()
-console.log("warranty and deviceid")
+/*console.log("warranty and deviceid")
  console.log(warranty)
  console.log(deviceid)
   console.log("originalid")
   console.log(id)
+  */
   var sql="insert into devicetable(deviceid,customerid, devicename ,warrant,datecreated,technicianid) values(?,?,?,?,now(),?)"
    
 connection.query(sql,[deviceid,customerid,devicename,warranty,technicianid] , (err, rows)=>{
@@ -468,7 +469,7 @@ res.status(500).send()
 if(!req.session.technicianuser){
 res.status(500).send()
  }else{ 
-var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.email = customertable.customerid where customertable.technicianid = ? and devicestatus.devicestatus = ? "
+var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment, deviceimei.imei , deviceserialnumber.serialnumber from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.customerid = customertable.customerid  left join deviceimei on devicetable.deviceid = deviceimei.deviceid left join deviceserialnumber on devicetable.deviceid = deviceserialnumber.deviceid where customertable.technicianid = ? and devicestatus.devicestatus = ? order by customertable.datecreated DESC"
 var technicianid = req.session.technicianuser
 connection.query(sql,[technicianid,"virgindevice"],(err,rows)=>{
 if(err){ console.log("failed to query database")}
@@ -505,7 +506,7 @@ res.render('technicianpages/technicianhome',{rows : rows, sessionid:req.session.
    //console.log(branchname)
    var branchid = rows[0].branchid
 console.log(rows)
- var sql = "select spareid,sparename,spareamount,totalcharge from spares where branchid = ?"
+ var sql = "select spareid,sparename,spareamount,totalcharge from spares where branchid = ? order by spares.sparename"
 	connection.query(sql,[branchid],(err,rows)=>{
 	if(err){ console.log(err.message)}
 	else{
@@ -541,7 +542,7 @@ exports.technicianspares =  async (req,res)=>{
     var totalspareprice= 0
     var res;
     
-    console.log(sparesarray.length)
+   // console.log(sparesarray.length)
    
  if(sparesarray.length==0){
   console.log("am selecting")
@@ -567,9 +568,11 @@ return resolve(usedspareid)
   var spares =  ()=>{ return new Promise((resolve,reject)=>{
 
   var sql= "update spares set spareamount = (spareamount - ?) where spareid = ?"
+/*
 console.log("sparesres[0]")
 console.log(res[3], res[0])
 console.log(res)
+*/
 connection.query(sql,[parseInt(res[2]),res[0]], (err)=>{
 //connection.end()
 if(err){reject(console.log(err.message))}
@@ -613,8 +616,8 @@ resolve( console.log("finished updating usedspares"))
        
 
 var sql = "insert into usedspares ( usedspareid, technicianid, deviceid, spareid, customerid, datecreated,quantity) values(?,?,?,?,?,now(),?)"
-console.log("usedsparesres[0]")
-console.log(res[0])
+//console.log("usedsparesres[0]")
+//console.log(res[0])
 connection.query(sql,[usedspareid,technicianid,deviceid,res[0],customerid,parseInt(res[2])], (err)=>{ 
 //connection.end()
 if(err){reject(console.log(err.message))}
@@ -630,7 +633,7 @@ resolve( console.log("finished inserting into used spares"))
 /* NB  
 res[0] spareid
 res[1] sparename
-res[2]  spare quantiry selected
+res[2]  spare quantity selected
 res[3] spare price fir a single spare
 */
 
@@ -652,15 +655,15 @@ res[3] spare price fir a single spare
 totalspareprice = parseFloat(totalspareprice) + (myquantity * myamount )
 
 var usedspareid = await uuidf()
-console.log("usedspareid")
-console.log(usedspareid)
+//console.log("usedspareid")
+//console.log(usedspareid)
  await spares()
- console.log("spares up")
+// console.log("spares up")
   await usedspares(usedspareid)
-  console.log("usedspares up")
+ // console.log("usedspares up")
 
 
-console.log("first query loop")
+//console.log("first query loop")
 }}
 resolve(sparequery())
 })
@@ -688,7 +691,7 @@ if(err){
   
 }else{
 console.log("device total charge row.length down")
-console.log(rows.length)
+//console.log(rows.length)
 if(rows.length == 1){
 
   var mytotalspareprice = parseFloat(rows[0].devicetotalcharge) + totalspareprice
@@ -737,22 +740,10 @@ res.json( {url:"/tpending"})
 })
 //console.log("hello world")
 //console.log("THE End")
-
-
-
-
 }}
 })
-
-
-
-
-
-
  }
-
 loopawait(req,res)
-
 //main else bracket
     }
     
@@ -767,13 +758,6 @@ loopawait(req,res)
     
     
 
-
-
-
-
-
-
-    
      /* TPENDING GET*/
  
  exports.tpending = (req,res)=>{ 
@@ -782,7 +766,8 @@ if(!req.session.technicianuser){
 res.status(500).send()
  }else{ 
 console.log("tpending Get working")
-var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment,devicetotalcharge.devicetotalcharge from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.email = customertable.customerid inner join devicetotalcharge on devicetotalcharge.deviceid = devicetable.deviceid where customertable.technicianid = ? and devicestatus.devicestatus = ?"
+
+var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment, deviceimei.imei , deviceserialnumber.serialnumber, devicetotalcharge.devicetotalcharge from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.customerid = customertable.customerid  left join deviceimei on devicetable.deviceid = deviceimei.deviceid left join deviceserialnumber on devicetable.deviceid = deviceserialnumber.deviceid inner join devicetotalcharge on devicetotalcharge.deviceid = devicetable.deviceid where customertable.technicianid = ? and devicestatus.devicestatus = ? order by customertable.datecreated DESC"
 var technicianid = req.session.technicianuser
 var devicestatus = "pendingdevice"
 connection.query(sql,[technicianid,devicestatus],(err,rows)=>{
@@ -806,7 +791,7 @@ if(!req.session.technicianuser){
 res.status(500).send()
  }else{ 
 console.log("tfailed Get working")
-var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment,devicetotalcharge.devicetotalcharge from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.email = customertable.customerid inner join devicetotalcharge on devicetotalcharge.deviceid = devicetable.deviceid where customertable.technicianid = ? and devicestatus.devicestatus = ?"
+var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment, deviceimei.imei , deviceserialnumber.serialnumber, devicetotalcharge.devicetotalcharge from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.customerid = customertable.customerid  left join deviceimei on devicetable.deviceid = deviceimei.deviceid left join deviceserialnumber on devicetable.deviceid = deviceserialnumber.deviceid inner join devicetotalcharge on devicetotalcharge.deviceid = devicetable.deviceid where customertable.technicianid = ? and devicestatus.devicestatus = ? order by customertable.datecreated DESC"
 var technicianid = req.session.technicianuser
 var devicestatus = "faileddevice"
 connection.query(sql,[technicianid,devicestatus],(err,rows)=>{
@@ -828,7 +813,8 @@ if(!req.session.technicianuser){
 res.status(500).send()
  }else{ 
 console.log("tready Get working")
-var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment,devicetotalcharge.devicetotalcharge from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.email = customertable.customerid inner join devicetotalcharge on devicetotalcharge.deviceid = devicetable.deviceid where customertable.technicianid = ? and devicestatus.devicestatus = ?"
+
+var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment, deviceimei.imei , deviceserialnumber.serialnumber, devicetotalcharge.devicetotalcharge from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.customerid = customertable.customerid  left join deviceimei on devicetable.deviceid = deviceimei.deviceid left join deviceserialnumber on devicetable.deviceid = deviceserialnumber.deviceid inner join devicetotalcharge on devicetotalcharge.deviceid = devicetable.deviceid where customertable.technicianid = ? and devicestatus.devicestatus = ? order by customertable.datecreated DESC"
 var technicianid = req.session.technicianuser
 var devicestatus = "readydevice"
 connection.query(sql,[technicianid,devicestatus],(err,rows)=>{
@@ -841,7 +827,7 @@ else{
 }}
  
  
- /* Tpending post */
+ /* Tpending post updating device fate */
  
  exports.tpendingpost= (req,res)=>{ 
  	var devicename = req.body.devicename
@@ -859,7 +845,7 @@ console.log(err.message)
 }else { 
 //route back
 
-var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment,devicetotalcharge.devicetotalcharge from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.email = customertable.customerid inner join devicetotalcharge on devicetotalcharge.deviceid = devicetable.deviceid where customertable.technicianid = ? and devicestatus.devicestatus = ?"
+var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment, deviceimei.imei , deviceserialnumber.serialnumber, devicetotalcharge.devicetotalcharge from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.customerid = customertable.customerid  left join deviceimei on devicetable.deviceid = deviceimei.deviceid left join deviceserialnumber on devicetable.deviceid = deviceserialnumber.deviceid inner join devicetotalcharge on devicetotalcharge.deviceid = devicetable.deviceid where customertable.technicianid = ? and devicestatus.devicestatus = ? order by customertable.datecreated DESC"
 var technicianid = req.session.technicianuser
 var devicestatus = "pendingdevice"
 connection.query(sql,[technicianid,devicestatus],(err,rows)=>{
@@ -885,7 +871,7 @@ console.log(err.message)
   	}else{
 //route back
 
-var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment,devicetotalcharge.devicetotalcharge from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.email = customertable.customerid inner join devicetotalcharge on devicetotalcharge.deviceid = devicetable.deviceid where customertable.technicianid = ? and devicestatus.devicestatus = ?"
+var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment, deviceimei.imei , deviceserialnumber.serialnumber, devicetotalcharge.devicetotalcharge from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.customerid = customertable.customerid  left join deviceimei on devicetable.deviceid = deviceimei.deviceid left join deviceserialnumber on devicetable.deviceid = deviceserialnumber.deviceid inner join devicetotalcharge on devicetotalcharge.deviceid = devicetable.deviceid where customertable.technicianid = ? and devicestatus.devicestatus = ? order by customertable.datecreated DESC"
 var technicianid = req.session.technicianuser
 var devicestatus = "pendingdevice"
 connection.query(sql,[technicianid,devicestatus],(err,rows)=>{
@@ -898,9 +884,7 @@ else{
  }
 })
 
-}
-
-  }
+}}
   
 /* technician logout */
 
@@ -1011,7 +995,10 @@ var searchf = (res,sql,technicianid,devicestatus,search,renderpage)=>{
 res.status(500).send()
  }else{ 
 console.log("started my query")
-connection.query(sql,[technicianid,devicestatus, "%"+search+"%", "%"+search+"%", "%"+search+"%", "%"+search+"%", "%"+search+"%"],(err,rows)=>{
+
+
+connection.query(sql,[technicianid,devicestatus, "%"+search+"%", "%"+search+"%", "%"+search+"%", "%"+search+"%", "%"+search+"%"
+,"%"+search+"%", "%"+search+"%"],(err,rows)=>{
 if(err){ console.log("failed to query database")}
 else{
  // console.log('succesfully queried database below are my rows')
@@ -1035,7 +1022,8 @@ var devicestatus = "virgindevice"
 var technicianid = req.session.technicianuser
 
 
-var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.email = customertable.customerid where customertable.technicianid = ? and devicestatus.devicestatus = ?  and (customertable.customerfname like ? or customertable.customerlname like ? or customertable.customercontact like ? or customeremail.email like ? or devicetable.devicename like ? )"
+
+var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment ,deviceimei.imei , deviceserialnumber.serialnumber from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.customerid = customertable.customerid left join deviceimei on devicetable.deviceid = deviceimei.deviceid left join deviceserialnumber on devicetable.deviceid = deviceserialnumber.deviceid where customertable.technicianid = ? and devicestatus.devicestatus = ?  and (customertable.customerfname like ? or customertable.customerlname like ? or customertable.customercontact like ? or customeremail.email like ? or devicetable.devicename like ? or deviceimei.imei like ? or deviceserialnumber.serialnumber like ?) order by customertable.datecreated desc"
 
 searchf(res,sql,technicianid,devicestatus,search,renderpage)
   
@@ -1060,7 +1048,7 @@ var devicestatus = "pendingdevice"
 var technicianid = req.session.technicianuser
 
 
-var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment, devicetotalcharge.devicetotalcharge   from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.email = customertable.customerid inner join devicetotalcharge on devicetotalcharge.deviceid = devicetable.deviceid where customertable.technicianid = ? and devicestatus.devicestatus = ?  and (customertable.customerfname like ? or customertable.customerlname like ? or customertable.customercontact like ? or customeremail.email like ? or devicetable.devicename like ? )"
+var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment ,deviceimei.imei , deviceserialnumber.serialnumber from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.customerid = customertable.customerid left join deviceimei on devicetable.deviceid = deviceimei.deviceid left join deviceserialnumber on devicetable.deviceid = deviceserialnumber.deviceid where customertable.technicianid = ? and devicestatus.devicestatus = ?  and (customertable.customerfname like ? or customertable.customerlname like ? or customertable.customercontact like ? or customeremail.email like ? or devicetable.devicename like ? or deviceimei.imei like ? or deviceserialnumber.serialnumber like ?) order by customertable.datecreated desc"
 
 searchf(res,sql,technicianid,devicestatus,search,renderpage)
   
@@ -1079,7 +1067,7 @@ var devicestatus = "readydevice"
 var technicianid = req.session.technicianuser
 
 
-var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment, devicetotalcharge.devicetotalcharge   from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.email = customertable.customerid inner join devicetotalcharge on devicetotalcharge.deviceid = devicetable.deviceid where customertable.technicianid = ? and devicestatus.devicestatus = ?  and (customertable.customerfname like ? or customertable.customerlname like ? or customertable.customercontact like ? or customeremail.email like ? or devicetable.devicename like ? )"
+var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment ,deviceimei.imei , deviceserialnumber.serialnumber from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.customerid = customertable.customerid left join deviceimei on devicetable.deviceid = deviceimei.deviceid left join deviceserialnumber on devicetable.deviceid = deviceserialnumber.deviceid where customertable.technicianid = ? and devicestatus.devicestatus = ?  and (customertable.customerfname like ? or customertable.customerlname like ? or customertable.customercontact like ? or customeremail.email like ? or devicetable.devicename like ? or deviceimei.imei like ? or deviceserialnumber.serialnumber like ?) order by customertable.datecreated desc"
 
 searchf(res,sql,technicianid,devicestatus,search,renderpage)
   
@@ -1098,7 +1086,7 @@ var devicestatus = "faileddevice"
 var technicianid = req.session.technicianuser
 
 
-var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment, devicetotalcharge.devicetotalcharge   from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.email = customertable.customerid inner join devicetotalcharge on devicetotalcharge.deviceid = devicetable.deviceid where customertable.technicianid = ? and devicestatus.devicestatus = ?  and (customertable.customerfname like ? or customertable.customerlname like ? or customertable.customercontact like ? or customeremail.email like ? or devicetable.devicename like ? )"
+var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment ,deviceimei.imei , deviceserialnumber.serialnumber from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.customerid = customertable.customerid left join deviceimei on devicetable.deviceid = deviceimei.deviceid left join deviceserialnumber on devicetable.deviceid = deviceserialnumber.deviceid where customertable.technicianid = ? and devicestatus.devicestatus = ?  and (customertable.customerfname like ? or customertable.customerlname like ? or customertable.customercontact like ? or customeremail.email like ? or devicetable.devicename like ? or deviceimei.imei like ? or deviceserialnumber.serialnumber like ?) order by customertable.datecreated desc"
 
 searchf(res,sql,technicianid,devicestatus,search,renderpage)
   
@@ -1127,7 +1115,7 @@ connection.query(sql,[technicianid],(err,rows)=>{
 
    var branchid = rows[0].branchid
 
-var sql =  "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment, devicetotalcharge.devicetotalcharge , branches.branchname, technicians.technicianfname, technicians.technicianlname, technicians.techniciannumber, technicians.technicianemail, branches.branchid from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.email = customertable.customerid inner join devicetotalcharge on devicetotalcharge.deviceid = devicetable.deviceid inner join technicians on technicians.technicianid = devicetable.technicianid inner join branches on branches.branchid = technicians.branchid where technicians.branchid = ?"
+var sql =  "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment, devicetotalcharge.devicetotalcharge , branches.branchname, technicians.technicianfname, technicians.technicianlname, technicians.techniciannumber, technicians.technicianemail, branches.branchid, deviceimei.imei , deviceserialnumber.serialnumber from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.customerid = customertable.customerid left join devicetotalcharge on devicetotalcharge.deviceid = devicetable.deviceid inner join technicians on technicians.technicianid = devicetable.technicianid inner join branches on branches.branchid = technicians.branchid left join deviceimei on devicetable.deviceid = deviceimei.deviceid left join deviceserialnumber on devicetable.deviceid = deviceserialnumber.deviceid where technicians.branchid = ? order by customertable.datecreated desc"
 
 connection.query(sql,[branchid],(err,rows)=>{
 if(err){ console.log("failed to query database supervisor home")}
@@ -1150,11 +1138,11 @@ var search = req.body.search
 var branchid = req.body.branchid
 
    
-var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment, devicetotalcharge.devicetotalcharge , branches.branchname, technicians.technicianfname, technicians.technicianlname, technicians.techniciannumber, technicians.technicianemail, branches.branchid from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.email = customertable.customerid inner join devicetotalcharge on devicetotalcharge.deviceid = devicetable.deviceid inner join technicians on technicians.technicianid = devicetable.technicianid inner join branches on branches.branchid = technicians.branchid where technicians.branchid = ? and (customertable.customerfname     like ? or customertable.customerlname like ? or customertable.customercontact like ? or customeremail.email like ? or  technicians.technicianfname like ? or technicians.technicianlname like ? or technicians.technicianemail like ? )"
+var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment, devicetotalcharge.devicetotalcharge , branches.branchname, technicians.technicianfname, technicians.technicianlname, technicians.techniciannumber, technicians.technicianemail, branches.branchid ,deviceimei.imei , deviceserialnumber.serialnumber from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.customerid = customertable.customerid left join devicetotalcharge on devicetotalcharge.deviceid = devicetable.deviceid inner join technicians on technicians.technicianid = devicetable.technicianid inner join branches on branches.branchid = technicians.branchid left join deviceimei on devicetable.deviceid = deviceimei.deviceid left join deviceserialnumber on devicetable.deviceid = deviceserialnumber.deviceid where technicians.branchid = ? and (customertable.customerfname like ? or customertable.customerlname like ? or customertable.customercontact like ? or customeremail.email like ? or  technicians.technicianfname like ? or technicians.technicianlname like ? or technicians.technicianemail like ? or deviceimei.imei like ? or  deviceserialnumber.serialnumber like ? ) order by customertable.datecreated desc"
 
    
 console.log("started my query")
-connection.query(sql,[branchid,"%"+search+"%", "%"+search+"%", "%"+search+"%", "%"+search+"%", "%"+search+"%","%"+search+"%","%"+search+"%"],(err,rows)=>{
+connection.query(sql,[branchid,"%"+search+"%", "%"+search+"%", "%"+search+"%", "%"+search+"%", "%"+search+"%","%"+search+"%","%"+search+"%","%"+search+"%","%"+search+"%"],(err,rows)=>{
 if(err){ console.log("failed to query database tbranchessearch")
   console.log(err.message)
 }else{

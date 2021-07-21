@@ -3,18 +3,18 @@ var bcrypt = require('bcryptjs');
 const { v4 : uuidv4} = require("uuid")
   const connection = mysql.createConnection({
     
-/*
+
   host : "localhost",
   user     : "root",
   password : "",
   database : "bugatech"
-  */
   
+  /*
   host : "172.30.72.177",
   user     : "root",
   password : "1234",
   database : "bugatech"
-  
+  */
     
 })
 
@@ -61,7 +61,7 @@ var myrows = rows
        console.log("failed to update admin status")
        console.log(err.message)
      }else{
-console.log(" the session id is "+ req.session.adminuser )
+//console.log(" the session id is "+ req.session.adminuser )
  res.render('admin',{rows:myrows })
      } })
   
@@ -79,7 +79,7 @@ connection.query(sql,[rows[0].adminid],(err,rows)=>{
 }else{ 
 	res.render('adminlogin',{ message :' try again with a correct password'})
 	
-	console.log('password missmatch')
+	//console.log('password missmatch')
 	}
  }
  comparepassword (compare)
@@ -313,10 +313,7 @@ res.render('adminpages/technicianentrycode',{message:"The token : "+token+" alre
 
  } }
 }) 
-
-}
- 
-}catch(err){ console.log(err.message) }
+}}catch(err){ console.log(err.message) }
  } 
 
 
@@ -384,19 +381,39 @@ res.render('adminpages/sparesupload',{message:"The spare : "+sparename+" already
 if(!req.session.adminuser){
 res.status(500).send()
  }else{ 
-var sql = "select * from spares inner join branches on spares.branchid = branches.branchid"
+   var branchname;
+var sql = "select * from spares inner join branches on spares.branchid = branches.branchid order by spares.sparename"
 connection.query(sql,(err,rows)=>{
 if(err){ console.log("failed to query database")}
 else{
 	//console.log(rows)
-res.render('adminpages/spares',{rows : rows })
+res.render('adminpages/spares',{rows : rows, branchname : branchname })
  }
 
  })
+}}
 
-}
 
-}
+/* out of stock spares get */
+
+exports.outofstock = (req,res)=>{ 
+if(!req.session.adminuser){
+res.status(500).send()
+ }else{ 
+   var branchname;
+var sql = "select * from spares inner join branches on spares.branchid = branches.branchid where spares.spareamount < 1 order by spares.sparename"
+connection.query(sql,(err,rows)=>{
+if(err){ console.log("failed to query database")}
+else{
+	//console.log(rows)
+res.render('adminpages/outofstock',{rows : rows, branchname : branchname })
+ }
+})
+}}
+
+
+
+
 
 /* Admin pages spares sort*/
 
@@ -576,7 +593,10 @@ if(!req.session.adminuser){
 res.status(500).send()
  }else{ 
    var branchname;
-var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant, technicians.branchid , branches.branchname, customertable.customercomment from customertable inner join devicetable on customertable.customerid = devicetable.customerid left join customeremail on customeremail.customerid = customertable.customerid inner join technicians on customertable.technicianid = technicians.technicianid inner join branches on technicians.branchid = branches.branchid"
+   
+var sql = "select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,technicians.technicianfname,technicians.technicianlname,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment, deviceimei.imei , deviceserialnumber.serialnumber,technicians.branchid , branches.branchname from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.customerid = customertable.customerid  left join deviceimei on devicetable.deviceid = deviceimei.deviceid left join deviceserialnumber on devicetable.deviceid = deviceserialnumber.deviceid inner join technicians on technicians.technicianid = customertable.technicianid inner join branches on technicians.branchid = branches.branchid  order by customertable.datecreated DESC"
+   
+
 connection.query(sql,(err,rows)=>{
 if(err){ console.log("failed to query database")}
 else{
@@ -600,7 +620,8 @@ res.status(500).send()
  }else{
  	var branchname = rows[0].branchname
 
-var sql ="select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,devicetable.warrant, technicians.branchid , branches.branchname, customertable.customercomment from customertable inner join devicetable on customertable.customerid = devicetable.customerid left join customeremail on customeremail.customerid = customertable.customerid inner join technicians on customertable.technicianid = technicians.technicianid inner join branches on technicians.branchid = branches.branchid  where technicians.branchid = ? "
+
+var sql ="select customertable.customerid,customertable.customerfname,customertable.customerlname,customertable.customercontact,customeremail.email,customertable.datecreated,devicetable.deviceid,devicetable.technicianid,devicetable.devicename,technicians.technicianfname,technicians.technicianlname,devicetable.warrant,devicestatus.devicestatus, customertable.customercomment, deviceimei.imei , deviceserialnumber.serialnumber ,technicians.branchid , branches.branchname from customertable inner join devicetable on customertable.customerid = devicetable.customerid inner join devicestatus on devicetable.deviceid = devicestatus.deviceid left join customeremail on customeremail.customerid = customertable.customerid  left join deviceimei on devicetable.deviceid = deviceimei.deviceid left join deviceserialnumber on devicetable.deviceid = deviceserialnumber.deviceid inner join technicians on technicians.technicianid = customertable.technicianid inner join branches on technicians.branchid = branches.branchid          where technicians.branchid = ? order by customertable.datecreated DESC"
 connection.query(sql,[branchid],(err,rows)=>{
 if(err){ console.log("failed to query database")}
 else{
@@ -706,18 +727,45 @@ connection.query(sql,[quantity,spareid],(err,rows)=>{
 if(err){ console.log("failed to query database quantity update")}
 else{
 	//console.log(rows)
-	
+	var branchname;
 var sql = "select * from spares inner join branches on spares.branchid = branches.branchid"
 connection.query(sql,(err,rows)=>{
 if(err){ console.log("failed to query database")}
 else{
 	
-res.render('adminpages/spares',{rows : rows,message:"quantity updated" })
+res.render('adminpages/spares',{rows : rows,message:"quantity updated" , branchname : branchname })
  } })
   
 }
 })}
 }
+/* out of stock update */
+
+exports.adminupdatequantityoutofstock = (req,res)=>{
+  if(!req.session.adminuser){
+res.status(500).send()
+ }else{ 
+   var quantity = req.body.quantity
+   var spareid = req.body.spareid
+   
+var sql = "update spares set spareamount = ? where spareid = ?"
+connection.query(sql,[quantity,spareid],(err,rows)=>{
+if(err){ console.log("failed to query database quantity update")}
+else{
+	//console.log(rows)
+	
+var sql = "select * from spares inner join branches on spares.branchid = branches.branchid order by spares.sparename"
+connection.query(sql,(err,rows)=>{
+if(err){ console.log("failed to query database")}
+else{
+	
+res.render('adminpages/outofstock',{rows : rows,message:"quantity updated" })
+ } })
+  
+}
+})}
+}
+
 
 
 
@@ -734,7 +782,7 @@ connection.query(sql,[spareid],(err,rows)=>{
 if(err){ console.log("failed to query database delete spare")}
 else{
 
-var sql = "select * from spares inner join branches on spares.branchid = branches.branchid"
+var sql = "select * from spares inner join branches on spares.branchid = branches.branchid order by spares.sparename"
 connection.query(sql,(err,rows)=>{
 if(err){ console.log("failed to query database")}
 else{
@@ -744,6 +792,36 @@ res.render('adminpages/spares',{rows : rows,message:"spare deleted succesfully" 
 }
  })
 }}
+ 
+ 
+ 
+ /* out of stock delete */
+ 
+exports.spareremoveoutofstock= (req,res)=>{ 
+if(!req.session.adminuser){
+res.status(500).send()
+ }else{ 
+ 	var spareid = req.body.spareid
+ 	
+var sql = "delete from spares where spareid = ?"
+connection.query(sql,[spareid],(err,rows)=>{
+if(err){ console.log("failed to query database delete spare")}
+else{
+
+var sql = "select * from spares inner join branches on spares.branchid = branches.branchid order by spares.sparename"
+connection.query(sql,(err,rows)=>{
+if(err){ console.log("failed to query database")}
+else{
+	
+res.render('adminpages/outofstock',{rows : rows,message:"spare deleted succesfully" })
+ } })
+}
+ })
+}}
+ 
+ 
+ 
+ 
  
  
  /* delete technician */

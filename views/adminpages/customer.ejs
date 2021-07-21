@@ -149,7 +149,7 @@ tr{
  <a href="adminpagesadminaccounts" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
    <i class="fas fa-chart-line me-2"></i>Manage Admins</a>
              
-                <a href="#" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
+                <a href="logout" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
                         class="fas fa-power-off me-2"></i>Logout</a>
             </div>
         </div>
@@ -208,9 +208,13 @@ tr{
 
       <th scope="col">customer contact</th>
 
-      <th scope="col">customer email</th>
+   <th scope="col">customer email</th>
+   <th scope="col">technician firstname</th>
+   <th scope="col">technician lastname</th>
       
       <th scope="col">device name</th>
+      <th scope="col">device device imei</th>
+      <th scope="col">device serial number</th>
       <th scope="col">problem description</th>
       <th scope="col">warrant status</th>
       <th scope="col">date created</th>
@@ -236,7 +240,11 @@ var id = 1;
 
       <td><%= row.customercontact %></td>
       <td><%= row.email%></td>
+      <td><%= row.technicianfname%></td>
+      <td><%= row.technicianlname%></td>
       <td><%= row.devicename%></td>
+      <td><%= row.imei%></td>
+      <td><%= row.serialnumber%></td>
       <td><%= row.customercomment%></td>
       
       <td><%= row.warrant%></td>

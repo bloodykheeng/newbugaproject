@@ -3,30 +3,108 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>technician create account</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  
+  <style>
+    
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body{
+  margin: 0;
+  padding: 0;
+ box-sizing: border-box;
+  font-family: sans-serif;
+  background: #34495e;
+font-family: "Poppins", sans-serif;
+}
+.box{
+  width: 75%;
+  padding: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background: #191919;
+  text-align: center;
+}
+.box h1{
+  color: white;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.box input[type = "text"],.box input[type = "password"]{
+  border:0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #3498db;
+  padding: 14px 10px;
+  width: 60%;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
+}
+.box input[type = "text"]:focus,.box input[type = "password"]:focus{
+  width: 80%;
+  border-color: #2ecc71;
+}
+.box input[type = "submit"]{
+  border:0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #2ecc71;
+  padding: 14px 40px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
+  cursor: pointer;
+}
+.box input[type = "submit"]:hover{
+  background: #2ecc71;
+}
+
+select{
+border:0;
+  background: white;
+  display: block;
+  margin: 20px auto;
+
+  border: 5px solid #3498db;
+ padding: 14px 10px;
+  width: 60%;
+  outline: none;
+  color: black;
+  border-radius: 24px;
+  transition: 0.25s;
+  
+}
+    
+  </style>
+  
+  
   </head>
   <body>
 
-    <div class="container">
-<h1>hello your welcome</h1>
-<h2>this is the land where technicians create there accounts from</h2>
-    <h3>CREATE ACCOUNT</h3>
-    <br>
-    <div class="alert alert-primary" role="alert">
-  <p> <%= locals.message ? message : 'welcome'%></p>
-</div>
-<br>
- <div>
- <form method="post" action="tcacc">
- <div class="form-group">
-    <label for="username1">Enter TOKEN</label>
+
+
+ <form method="post" action="tcacc" class="box">
+ <h1>CREATE ACCOUNT</h1>
+ <br>
+ <p style="color:orange;"> <%= locals.message ? message : 'welcome'%></p>
+ 
+    
     <input name="token" type="text" class="form-control" placeholder="enter create account token">
-  </div>
   
-  <div class="form-group">
-  <label>Select your branch</label>
- <select id="selectlevel" name="branchid" class="form-select" >
+  
+  
+  <label style="color:white;">Select your branch</label><br>
+ <select  id="selectlevel" name="branchid" class="form-select" >
   <option value="8e700223-60c7-423d-9032-fc02bd38082d">mtn shoprite clock tower</option>
   <option value="af53ff22-45ec-4c45-82a6-7a8dd2f3b479">mtn kampala road</option>
   <option value="02778e1c-bdc4-4e95-a884-a66438931c95">mtn crested tower</option>
@@ -37,49 +115,33 @@
             <option value="2a7bdf58-b33e-4644-bc3f-a30328d23822">mtn mbarara</option>
               <option value="1fba1fb5-69a2-4188-8034-9440f88b1013">mtn fortportal</option>
                 <option value="5fda81a0-a87c-4eb5-89fa-d862fe5a5079">mtn masaka</option>
-</select><br>
- </div>
+</select>
+ 
   
   
-<div class="form-group">
-    <label for="username1">enter email or a technician first name</label>
     <input name="firstname" type="text" class="form-control" placeholder="enter technician firstname">
-  </div>
-  <div class="form-group">
-    <label for="username1">enter technician second name</label>
-    <input name="secondname" type="text" class="form-control" placeholder="enter technician second name">
-  </div>
-  <div class="form-group">
-    <label for="username1">enter technician email</label>
-    <input name="email" type="text" class="form-control" placeholder="enter technician email">
-  </div>
-  <div class="form-group">
-    <label for="username1">enter technician phone number</label>
-    <input name="phonenumber" type="text" class="form-control" placeholder="enter technician phone number">
-  </div>
-  <div class="form-group">
-    <label for="username1">enter technician username</label>
-    <input name="username" type="text" class="form-control" placeholder="enter a techhnician username">
-  </div>
   
-   <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-   <div class="form-group">
-    <label for="exampleInputPassword1">Repeat Password</label>
+    <input name="secondname" type="text" class="form-control" placeholder="enter technician second name">
+  
+
+    <input name="email" type="text" class="form-control" placeholder="enter technician email">
+  
+  
+    <input name="phonenumber" type="text" class="form-control" placeholder="enter technician phone number">
+  
+  
+    <input name="username" type="text" class="form-control" placeholder="enter a techhnician username">
+  
+  <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  
+   
     <input name="cpassword" type="password" class="form-control" id="exampleInputPassword1" placeholder="repeat Password">
-  </div>
+  
   <button type="submit" class="btn btn-primary">Create Technician</button>
+  <br><br>
+<a href="technicianlogin" class="btn btn-primary">BACK 2 LOGIN</a>
 </form>
-    <br>
-        <div>
- <a href="technicianlogin" class="btn btn-primary">BACK 2 LOGIN</a>
-        </div>
-    
-      </div>
-    
-    </div>
+
   </body>
   
 </html>

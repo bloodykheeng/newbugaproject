@@ -5,46 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>admin login</title>
-  <style>
-*{
- margin: 0;
- padding: 0;
+   <style>
+    
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body{
+  margin: 0;
+  padding: 0;
  box-sizing: border-box;
- font-family: "Poppins", sans-serif;
+  font-family: sans-serif;
+  background: #34495e;
+font-family: "Poppins", sans-serif;
 }
+.box{
+  width: 75%;
+  padding: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background: #191919;
+  text-align: center;
+}
+.box h1{
+  color: white;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.box input[type = "text"],.box input[type = "password"]{
+  border:0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #3498db;
+  padding: 14px 10px;
+  width: 60%;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
+}
+.box input[type = "text"]:focus,.box input[type = "password"]:focus{
+  width: 80%;
+  border-color: #2ecc71;
+}
+.box input[type = "submit"]{
+  border:0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #2ecc71;
+  padding: 14px 40px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
+  cursor: pointer;
+}
+.box input[type = "submit"]:hover{
+  background: #2ecc71;
+}
+
     
   </style>
   </head>
   <body>
-    <div class="container">
-    <h1>hello your welcome</h1>
-    <h2>Admins Panel</h2>
-    <h3>login</h3>
-    <br>
-       
-       <div class="alert alert-primary" role="alert">
-  <p> <%= locals.message ? message : 'welcome'%></p>
-</div>
-
-       <div class="container">
-<form method="post" action="adminloginpost">
-  <div class="form-group">
-    <label >ENTER YOUR USERNAME</label>
-    <input type="text" class="form-control" name="username"  placeholder="Enter email/username">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="enter Password">
-  </div>
-  <button type="submit" class="btn btn-primary">login</button>
-</form>
-</div>
-<br>
-     <div>
-   <a href="/"class="btn btn-primary">BACK</a>
+  
+<form method="post" action="adminloginpost" class="box">
+  <h1>ADMIN`S Login</h1> <br>
+  
+ <p style="color:orange;"> <%= locals.message ? message : 'welcome'%></p> 
+  
+   <input type="text" class="form-control" name="username"  placeholder="enter username">
+   
+   <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="enter Password">
+   
+  <input type="submit"  value="Login">
+  <br>
+   <div>
+   <a href="/"class="btn btn">BACK</a>
          </div>
        <!-- end -->
-       </div>
+      
+  
+</form>
+  
+  
   </body>
   
 </html>
+

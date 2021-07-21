@@ -193,7 +193,7 @@ height:1000px;
        <i class="fas fa-times"></i>
      </div>
      <div class="menu">
-       <div class="item"><a href="technicianhome"><i class="fas fa-desktop"></i>Dashboard</a></div>
+       <div class="item"><a href="technicianhome"><i class="fas fa-desktop"></i>New Devices</a></div>
        <div class="item">
          <a class="sub-btn"><i class="fas fa-table"></i>Tables<i class="fas fa-angle-right dropdown"></i></a>
          <div class="sub-menu">
@@ -407,7 +407,7 @@ var trchildren = tr.children
 //console.log(trchildren)
 spareid = trchildren[7].children[0].value
 sparename= trchildren[2].textContent
-console.log(spareid)
+//console.log(spareid)
 //console.log(sparename)
 spareamount = parseInt(trchildren[3].textContent)
 
@@ -456,7 +456,7 @@ alert(sparesarray)
 console.log(sparesarray)
 var quantityinput = trchildren[5].children[0]
 quantityinput.removeAttribute("readonly")
-console.log(sparesarray.length)
+//console.log(sparesarray.length)
 
 for(var x = 0; x < sparesarray.length; x++){
 
@@ -464,7 +464,7 @@ var index = sparesarray[x].indexOf(spareid)
 console.log(sparesarray[x])
 if(index > -1 ){ 
 var removed = sparesarray.splice([x],1)
-alert(removed)
+//alert(removed)
 //console.log("removed")
 //console.log(removed)
 x--

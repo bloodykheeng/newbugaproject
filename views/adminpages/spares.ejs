@@ -173,7 +173,7 @@ tr{
   
     <a class="navbar-brand btn btn-outline-success me-2" href="uploadspare">Upload Spare</a>
 
- <a class="navbar-brand btn btn-outline-success me-2" href="#"><strike>Out-of-Stock</strike></a>
+ <a class="navbar-brand btn btn-outline-success me-2" href="outofstock">Out-of-Stock</a>
   
     <a class="navbar-brand btn btn-outline-success me-2" href="adminpagesusedspare">Used Spares</a>
 
@@ -255,8 +255,8 @@ var id = 1;
 
     </tr>
     
-<% id++  })  }else{%>
-<div> THERE IS NO DATA TO PRESENT from <%= branchname %>  branch</div>
+<%  id++; }) }else{%>
+<div> THERE IS NO DATA TO PRESENT FROM  <% if(!branchname){ branchname="ANY BRANCH" }%><%=branchname %></div>
 
  <% }%>
     
