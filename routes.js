@@ -67,6 +67,7 @@ res.render('adminpages/techniciancreateacc')
 
 
 router.get("/adminpagescustomers", admincontroller.adminpagescustomer )
+
 router.get("/adminpagessupervisors", admincontroller.adminpagessupervisors)
 
 
