@@ -728,7 +728,7 @@ if(err){ console.log("failed to query database quantity update")}
 else{
 	//console.log(rows)
 	var branchname;
-var sql = "select * from spares inner join branches on spares.branchid = branches.branchid"
+var sql = "select * from spares inner join branches on spares.branchid = branches.branchid order by spares.sparename"
 connection.query(sql,(err,rows)=>{
 if(err){ console.log("failed to query database")}
 else{
