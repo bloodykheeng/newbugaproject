@@ -8,12 +8,15 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
   
+
   
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-    <title>Select Spares</title>
+      
+      <title>Select Spares</title>
    
     <style>
      
@@ -174,10 +177,23 @@ white-space: nowrap;
 }
 
 .table{
-  max-height:100%;
+  max-height:90%;
 }
 .table-responsive{
 height:1000px;
+  }
+  
+  input[type='checkbox']{
+    width:10px;
+    height:10px;
+    background:yellow;
+    
+  }
+input[type='checkbox']:checked{
+    width:10px;
+    height:10px;
+    background:orange;
+    
   }
 
    </style>
@@ -232,7 +248,7 @@ height:1000px;
   <h1>Choose spares</h1> <br>
   
   <div class="alert alert-primary" role="alert">
-  <p> <%= locals.message ? message : 'welcome'%></p>
+  <p class="mainalert"> <%= locals.message ? message : 'welcome'%></p>
 </div>
   <div style="background:transparent; border:none; color:orange; font-size:30px;" class="alert alert-secondary" role="alert">
   <p id="alertptag2"> </p>
@@ -332,8 +348,8 @@ var id = 1;
  <input type="number" id="quantity" value="1" name="quantity" placeholder="enter spare quantity"> 
             </td>
  <td>
-   <input type="checkbox">
- </td>
+  <input style="width:50px; height:30px; "type="checkbox">
+</td>
   
               <td>
   <input type="text" id="record" name="record" value="<%= row.spareid%>" hidden>
@@ -375,6 +391,7 @@ var id = 1;
    
 document.addEventListener('DOMContentLoaded', function(e){
       var alertptag2 = document.querySelector("#alertptag2")
+   var mainalert = document.querySelector(".mainalert")
     var select = document.querySelector("#selectlevel").value
      var deviceid = document.querySelector("#deviceid").value
    var customerid = document.querySelector("#customerid").value
@@ -399,7 +416,8 @@ var checkbox = target
 /*checkbox.addEventListener("change",(event)=>{*/
 if(checkbox.checked){ 
  // alert('im checked')
-  
+
+ 
 var td = checkbox.parentElement
 var tr = td.parentElement
 var trchildren = tr.children
@@ -427,8 +445,8 @@ var result = spareamount - quantity
 //console.log(result)
 
 if(result < 0){ 
-  alert("the quantity you chose is more than what is in stock")
-var messageone = "Please choose atleast one spare";
+  alert("The quantity you chose for "+ sparename +" is more than what is in stock")
+var messageone = "please choose a quantity that is less than that in stock";
 alertptag2.textContent = messageone
 
 }
@@ -438,13 +456,14 @@ quantityinput.setAttribute("readonly","")
 sarray = [spareid,sparename,quantity,spareprice]
 sparesarray.push(sarray)
 //console.log(sparesarray)
+
 }
 
 
 
 }else if(!checkbox.checked){ 
  // alert('im unchecked')
-  
+
 var td = checkbox.parentElement
 var tr = td.parentElement
 var trchildren = tr.children
@@ -452,8 +471,9 @@ var trchildren = tr.children
 spareid = trchildren[7].children[0].value
 quantity = trchildren[5].children[0].value
 //console.log(quantity)
-alert(sparesarray)
-console.log(sparesarray)
+
+//alert('youve remove this spare : '+ sparesarray[1])
+//console.log(sparesarray)
 var quantityinput = trchildren[5].children[0]
 quantityinput.removeAttribute("readonly")
 //console.log(sparesarray.length)
@@ -512,6 +532,7 @@ var message = data.message
 //var datarows  = data.rows
 //var datacustomerid = data.customerid
 alertptag2.textContent = message
+
   
 }
 

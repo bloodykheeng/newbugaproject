@@ -3,18 +3,18 @@ var bcrypt = require('bcryptjs');
 const { v4 : uuidv4} = require("uuid")
   const connection = mysql.createConnection({
     
-/*
+
   host : "localhost",
   user     : "root",
   password : "",
   database : "bugatech"
-*/
-  
+
+  /*
   host : "172.30.72.177",
   user     : "root",
   password : "1234",
   database : "bugatech"
-
+*/
     
 })
 
@@ -754,7 +754,7 @@ if(err){ console.log("failed to query database quantity update")}
 else{
 	//console.log(rows)
 	
-var sql = "select * from spares inner join branches on spares.branchid = branches.branchid order by spares.sparename"
+var sql = "select * from spares inner join branches on spares.branchid = branches.branchid where spares.spareamount < 1 order by spares.sparename"
 connection.query(sql,(err,rows)=>{
 if(err){ console.log("failed to query database")}
 else{

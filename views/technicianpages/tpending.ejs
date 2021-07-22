@@ -155,7 +155,7 @@ white-space: nowrap;
 }
 
 .table{
-  max-height:100%;
+  max-height:90%;
 }
 .table-responsive{
 height:1000px;
@@ -400,16 +400,16 @@ async function fetching(){
   console.log("my data below")
 var rows = data.rows
 
-   var sparename = rows[0].sparename
-   var sparequantity = rows[0].quantity
+   //var sparename = rows[0].sparename
+  // var sparequantity = rows[0].quantity
    
-   var message =" The spares used on "+customerfname+"'s device : "+ devicename+" are :-"
+   var message =" The spares used on "+customerfname+"'s device : "+ devicename+" are :<br>"
    alert.innerHTML = message
   
    for(var x = 0; x < rows.length; x++){
   
 alert.innerHTML += "sparename : "+rows[x].sparename 
-alert.innerHTML += "spare quantity used :"+rows[0].quantity 
+alert.innerHTML += " ,quantity  : "+rows[x].quantity+"<br>" 
      
      }
    

@@ -18,7 +18,8 @@ body{
 font-family: "Poppins", sans-serif;
 }
 .box{
-  width: 75%;
+
+  width: 90%;
   padding: 50px;
   position: absolute;
   top: 50%;
@@ -67,6 +68,27 @@ font-family: "Poppins", sans-serif;
 .box input[type = "submit"]:hover{
   background: #2ecc71;
 }
+
+@media screen and (max-width: 600px) {
+  .box{
+    width: 300px;
+  }
+.box input[type = "text"]:focus,.box input[type = "password"]:focus{
+  
+  width:220px;
+  
+}
+
+.box input[type = "text"],.box input[type = "password"]{
+  width:210px;
+}
+  
+.box h1{ 
+  font-weight: 100;
+}
+  
+}
+
 
     
   </style>

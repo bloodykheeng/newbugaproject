@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>technician login</title>
     
-  <style>
+ <style>
     
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
@@ -19,7 +19,8 @@ body{
 font-family: "Poppins", sans-serif;
 }
 .box{
-  width: 75%;
+
+  width: 90%;
   padding: 50px;
   position: absolute;
   top: 50%;
@@ -68,6 +69,27 @@ font-family: "Poppins", sans-serif;
 .box input[type = "submit"]:hover{
   background: #2ecc71;
 }
+
+@media screen and (max-width: 600px) {
+  .box{
+    width: 300px;
+  }
+.box input[type = "text"]:focus,.box input[type = "password"]:focus{
+  
+  width:220px;
+  
+}
+
+.box input[type = "text"],.box input[type = "password"]{
+  width:210px;
+}
+  
+.box h1{ 
+  font-weight: 100;
+}
+  
+}
+
 
     
   </style>

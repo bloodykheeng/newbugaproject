@@ -4,19 +4,19 @@
 const { v4 : uuidv4} = require("uuid")
  const connection = 
   mysql.createConnection({
-    /*
+    
   host : "localhost",
   user     : "root",
   password : "",
   database : "bugatech"
-  */
+  
 
-
+/*
 host : "172.30.72.177",
   user     : "root",
   password : "1234",
   database : "bugatech"
-
+*/
   
 })
 
@@ -1180,7 +1180,7 @@ connection.query(sql,[deviceid,technicianid],(err,rows)=>{
   }else{
     console.log(rows)
     console.log("finished quering view spares")
-    console.log(rows)
+    //console.log(rows)
     res.json({rows:rows})
   }
   

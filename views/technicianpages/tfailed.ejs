@@ -156,7 +156,7 @@ white-space: nowrap;
 }
 
 .table{
-  max-height:100%;
+  max-height:90%;
 }
 .table-responsive{
 height:1000px;
@@ -205,7 +205,7 @@ height:1000px;
   
   <h1> FAILED devices page</h1> <br>
        <div class="alert alert-primary" role="alert">
-  <p> <%= locals.message ? message : 'welcome'%></p>
+  <p id="alertp"> <%= locals.message ? message : 'welcome'%></p>
 </div>
 <br>
 <div style="display:flex; justify-content:space-between;">
@@ -253,6 +253,7 @@ height:1000px;
       <th scope="col">date created</th>
     <th scope="col">device status</th>
     <th scope="col">total spare price</th>
+ <th scope="col">view used spares</th>
     
     
       <th scope="col">repair status</th>
@@ -288,6 +289,19 @@ var id = 1;
       <td><%= row.datecreated%></td>
          <td><%= row.devicestatus%></td>
   <td><%= row.devicetotalcharge%></td>
+  
+   <td>  
+  <form class="viewusedspare" method="post" action="#">
+  <input type="text" name="deviceid" hidden value="<%= row.deviceid %>">
+  
+    <input type="text" name="customerfname" hidden value="<%= row.customerfname %>">
+  
+   <input type="text" name="devicename" hidden value="<%= row.devicename%>">
+    
+ <button name="myusedspare" class="btn btn-outline-primary" type="submit">View used spares</button>
+      </form>
+      </td>
+  
       <td>Repare failed</td>
     </tr>
 
@@ -308,6 +322,80 @@ var id = 1;
 <!--</section>-->
 
    <script type="text/javascript">
+   
+   
+var alert = document.querySelector("#alertp")
+   
+   var table = document.querySelector("table")
+   
+  table.addEventListener("click",(e)=>{
+  
+     var target = e.target
+     
+     
+   if(target.getAttribute("name") == "myusedspare"){
+   e.preventDefault()
+      //alert("they have")
+
+ usedspareform = e.target.parentElement
+
+formchildren = usedspareform.children
+     
+ var deviceid  = formchildren[0].value
+var customerfname = formchildren[1].value
+var devicename = formchildren[2].value
+     
+     
+//alert(deviceid +" "+ customerfname+" " +devicename)
+
+
+
+var data ={
+deviceid:deviceid
+}
+
+var options = {
+method : 'POST',
+headers : { 'content-type': 'application/json' },
+body:JSON.stringify(data)
+}
+
+
+
+var fetched = fetch('/technicianviewspares',options)
+//fetch('/technicianhome')
+
+
+async function fetching(){
+    var fetch = await fetched
+  var data = await fetch.json()
+
+  console.log("my data below")
+var rows = data.rows
+
+   //var sparename = rows[0].sparename
+  // var sparequantity = rows[0].quantity
+   
+   var message =" The spares used on "+customerfname+"'s device : "+ devicename+" are :<br>"
+   alert.innerHTML = message
+  
+   for(var x = 0; x < rows.length; x++){
+  
+alert.innerHTML += "sparename : "+rows[x].sparename 
+alert.innerHTML += " ,quantity  : "+rows[x].quantity+"<br>" 
+     
+     }
+   
+   //console.log(message)
+}
+fetching()
+}    })
+   
+   
+   
+   
+   
+   
    $(document).ready(function(){
      //jquery for toggle sub menus
      $('.sub-btn').click(function(){
