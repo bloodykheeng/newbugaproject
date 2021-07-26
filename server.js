@@ -24,6 +24,7 @@ app.use(session({
 	}))
 	
 app.use('/images',express.static(path.join(__dirname,'public/images')))
+app.use('/css',express.static(path.join(__dirname,'views/technicianpages')))
 
 app.use('/',router)
 app.listen(port,()=>{ 
