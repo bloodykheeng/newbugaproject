@@ -1,76 +1,79 @@
-<!DOCTYPE HTML>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!Doctype HTML>
+<html>
+<head>
+	<title>supervisor</title>
+	
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
-<title>supervisor home</title>
-  </head>
-  
-  <style>
-
-*{
-  margin:0;
-  box-sizing: border-box;
-}
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+	
+	
+	<link rel="stylesheet" href="css/style.css" type="text/css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	
+	</head>
 
 
-tr{
-        white-space: nowrap;
-      }
-      
-      .containe{
-       margin:10px;
-       margin-left:20px;
-       margin-right:20px;
-        width:100vh;
-        
-        background:yellow;
-        
-      }
-      body{ 
-   background:yellow;
-        
-      }
-    
-  </style>
-  
-  
-  <body>
-   
-   <div class="containe">
-<div style="width:10%" class="alert alert-info" role="alert">
-<p> <%= locals.message ? message : 'welcome'%></p>
-</div> <br>
+<body>
+	
+	<div id="mySidenav" class="sidenav">
+	<p class="logo"><span>B</span>UGA-TECH</p>
+ 
+  <a style="color:white;" href="#"class="icon-a"><i class="fa fa-users icons"></i> &nbsp;&nbsp;Analytics</a>
+  <!--
+  <a href="tpending"class="icon-a"><i class="fa fa-list icons"></i> &nbsp;&nbsp;Pending Devices</a>
+  <a href="tready"class="icon-a"><i class="fa fa-shopping-bag icons"></i> &nbsp;&nbsp;Ready Devices</a>
+  <a href="tfailed"class="icon-a"><i class="fa fa-tasks icons"></i> &nbsp;&nbsp;Failed Devices</a>
+  <a href="technicianbranchscope"class="icon-a"><i class="fa fa-user icons"></i> &nbsp;&nbsp;Branch Scope</a>
+  <a href="customercreateacc"class="icon-a"><i class="fa fa-list-alt icons"></i> &nbsp;&nbsp; Customer Record</a>
+  -->
+
+</div>
+<div id="main">
+
+	<div class="head">
+		<div class="col-div-6">
+<span style="font-size:30px;cursor:pointer; color: white;" class="nav"  >&#9776; Dashboard</span>
+<span style="font-size:30px;cursor:pointer; color: white;" class="nav2"  >&#9776; Dashboard</span>
+</div>
+	
+	<div class="col-div-6">
+<!--	<div class="profile">
+
+		<img src="images/user.png" class="pro-img" />
+		<p>Manoj Adhikari <span>UI / UX DESIGNER</span></p>
+	</div> -->
+	<div class="profile">
+
+		<a class="btn btn-outline-success" href="supervisorlogout" style="color:white;">logout</a>
+	</div> 
+	
+</div>
+	<div class="clearfix"></div>
+</div>
 
 
-<nav class="navbar navbar-light bg-dark">
-<div style="display:flex; justify-content:space-around;">
-  
-  
-
-  <form style="margin-right:30px; " method="post" action="supervisorsearch" class="form-inline">
+	
+	
+	<!-- table div -->
+	
+	<div class="col-div-12">
+		<div class="box-12">
+  <h1>SUPERVISOR</h1> <br>
+<nav class="navbar navbar-light ">
+   <form style="margin-right:30px; " method="post" action="supervisorsearch" class="form-inline">
    <input name="search" class="form-control mr-sm-2" type="text" placeholder="Search" >
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
   </form>
-
-
-<span style="margin-right:30px;"><a class="btn btn-primary" href="supervisorhome">refresh</a></span>
-
-<span><a class="btn btn-primary" href="supervisorlogout">logout</a></span>
-  
-</div>
 </nav>
-
-<br>
-
-
-    
- <br>
- <br>
-
+		  
+		  
+		<div class="content-box">
+<div class="alert alert-primary" role="alert">
+  <p> <%= locals.message ? message : 'welcome'%></p>
+</div>
+			<br/>
 <div  class="table-responsive">
  <table style="max-height:90%" class="table" style="white-space:nowrap;">
   <caption>List of My Customers and there devices</caption>
@@ -131,15 +134,45 @@ var id = 1;
 </div>
 
 
+		</div>
+	</div>
+	</div>
 
 
-
-
-
-
+		
+	<div class="clearfix"></div>
 </div>
 
-    
-  </body>
-  
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+  $(".nav").click(function(){
+    $("#mySidenav").css('width','70px');
+    $("#main").css('margin-left','70px');
+    $(".logo").css('visibility', 'hidden');
+    $(".logo span").css('visibility', 'visible');
+     $(".logo span").css('margin-left', '-10px');
+     $(".icon-a").css('visibility', 'hidden');
+     $(".icons").css('visibility', 'visible');
+     $(".icons").css('margin-left', '-8px');
+      $(".nav").css('display','none');
+      $(".nav2").css('display','block');
+  });
+
+$(".nav2").click(function(){
+    $("#mySidenav").css('width','300px');
+    $("#main").css('margin-left','300px');
+    $(".logo").css('visibility', 'visible');
+     $(".icon-a").css('visibility', 'visible');
+     $(".icons").css('visibility', 'visible');
+     $(".nav").css('display','block');
+      $(".nav2").css('display','none');
+ });
+
+</script>
+
+</body>
+
+
 </html>
