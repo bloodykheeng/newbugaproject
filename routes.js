@@ -176,6 +176,8 @@ router.get("/supervisorlogout",controller.slogout)
 
 router.get("/supervisorhome",controller.supervisorhome )
 
+router.get("/supervisorspares",controller.supervisorspares )
+
 
 
 module.exports= router

@@ -9,8 +9,7 @@ const { v4 : uuidv4} = require("uuid")
   password : "",
   database : "bugatech"
   */
-
-
+  
 host : "172.30.72.177",
   user     : "root",
   password : "1234",
@@ -1169,22 +1168,62 @@ console.log("views query start")
 var deviceid = req.body.deviceid
 var technicianid = req.session.technicianuser
 console.log("deviceid and technicianid")
-console.log(deviceid)
-console.log(technicianid)
+//console.log(deviceid)
+//console.log(technicianid)
 var sql = "select spares.sparename, usedspares.quantity, usedspares.spareid from usedspares inner join spares on usedspares.spareid = spares.spareid where deviceid = ? and  technicianid = ?"
 connection.query(sql,[deviceid,technicianid],(err,rows)=>{
   if(err){
     console.log("failed to query view spares")
     console.log(err.message)
   }else{
-    console.log(rows)
+    //console.log(rows)
     console.log("finished quering view spares")
     //console.log(rows)
     res.json({rows:rows})
   }
+  }) }}
   
-})
+  
+  
+  /* supervisor spares */
+  
+  exports.supervisorspares = (req,res)=>{ 
+if(!req.session.supervisoruser){
+res.status(500).send()
+ }else{ 
+   console.log("supervisor spares working")
+   var branchname;
+var sql = "select spares.spareid, spares.sparename,sum(usedspares.quantity) as spare_quantity from usedspares inner join spares on usedspares.spareid = spares.spareid group by spares.spareid, spares.sparename order by spare_quantity desc"
 
+connection.query(sql,(err,rows)=>{
+if(err){ console.log("failed to query database")}
+else{
+	//console.log(rows)
+	let  sparename = new Array()
+	let sparequantity = new Array()
+	console.log("finished quering graph db")
+	const loop = ()=>{ 
+	  return new Promise((resolve,reject)=>{
+	rows.every(row =>{
+	  let x = 0; 
+	  if(x==30){
+	    return false;
+	      }else{
+	    resolve(sparename.push(row.sparename) , 
+	     sparequantity.push(row.spare_quantity) )
+	        return true;
+	      }
+	  x++
+	}) }	)}
+	
+	
+	const myrender = async ()=>{
+	  await loop()
+res.render("supervisorpages/spares",{ rows : rows , branchname:branchname, sparename: JSON.stringify(sparename), sparequantity:JSON.stringify(sparequantity) })
 }
 
-}
+myrender()	
+	
+} })
+
+}}

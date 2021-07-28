@@ -2,12 +2,13 @@ var bcrypt = require('bcryptjs');
   const mysql = require('mysql2');
 const { v4 : uuidv4} = require("uuid")
   const connection = mysql.createConnection({
-  /*
+    /*
   host : "localhost",
   user     : "root",
   password : "",
   database : "bugatech"
-   */
+  */
+   
   host : "172.30.72.177",
   user     : "root",
   password : "1234",
@@ -338,8 +339,9 @@ res.render('adminpages/sparesupload',{message:"use  decimal and whole numbers on
  var spareprice = parseInt(spareprice)
  var spareamount = parseInt(spareamount)
  
- var sparetotal = (sparetax) * (spareprice) *(spareamount)
- 
+ console.log("sparetotal down")
+ var sparetotal = ((sparetax) * (spareprice)) + (spareprice)
+ console.log(sparetotal)
  
 var sql="select * from spares where sparename = ? and branchid = ?"
 connection.query(sql, [sparename,branchid] , (err, rows)=>{

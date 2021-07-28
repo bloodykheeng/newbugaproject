@@ -1,7 +1,7 @@
 <!Doctype HTML>
 <html>
 <head>
-	<title>supervisor</title>
+	<title>supervisor spares</title>
 	
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="css/style.css" type="text/css"/>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	
 	</head>
 
@@ -20,13 +21,12 @@
 	<div id="mySidenav" class="sidenav">
 	<p class="logo"><span>B</span>UGA-TECH</p>
  
-  <a style="color:white;" href="supervisorhome"class="icon-a"><i class="fa fa-users icons"></i> &nbsp;&nbsp; Devices</a>
+  <a href="supervisorhome"class="icon-a"><i class="fa fa-users icons"></i> &nbsp;&nbsp;Devices</a>
   
-  <a href="supervisorspares"class="icon-a"><i class="fa fa-list icons"></i> &nbsp;&nbsp; Spares</a>
-  
+  <a style="color:white;" href="supervisorspares"class="icon-a"><i class="fa fa-list icons"></i> &nbsp;&nbsp;Spares</a>
   <!--
-  <a href=""class="icon-a"><i class="fa fa-shopping-bag icons"></i> &nbsp;&nbsp;Analytics</a>
-
+  <a href="#"class="icon-a"><i class="fa fa-shopping-bag icons"></i> &nbsp;&nbsp;Analytics</a>
+  
   <a href="tfailed"class="icon-a"><i class="fa fa-tasks icons"></i> &nbsp;&nbsp;Failed Devices</a>
   <a href="technicianbranchscope"class="icon-a"><i class="fa fa-user icons"></i> &nbsp;&nbsp;Branch Scope</a>
   <a href="customercreateacc"class="icon-a"><i class="fa fa-list-alt icons"></i> &nbsp;&nbsp; Customer Record</a>
@@ -63,13 +63,8 @@
 	
 	<div class="col-div-12">
 		<div class="box-12">
-  <h1>SUPERVISOR</h1> <br>
-<nav class="navbar navbar-light ">
-   <form style="margin-right:30px; " method="post" action="supervisorsearch" class="form-inline">
-   <input name="search" class="form-control mr-sm-2" type="text" placeholder="Search" >
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-  </form>
-</nav>
+  <h1>most used spares</h1> <br>
+
 		  
 		  
 		<div class="content-box">
@@ -77,28 +72,29 @@
   <p> <%= locals.message ? message : 'welcome'%></p>
 </div>
 			<br/>
+
+<div>
+  <div style="color:white; display:flex;  justify-content:center;"><p>GRAPH SHOWING TOP 30 REQUESTED SPARES</p></div>
+  <canvas id="myChart" height="500px" width="500px"></canvas>
+</div>
+<br><br>
+
+
+
+
 <div  class="table-responsive">
  <table style="max-height:90%" class="table" style="white-space:nowrap;">
-  <caption>List of My Customers and there devices</caption>
+  <caption>LIST OF SPARE USAGE</caption>
   <thead class="thead-dark" >
 
     <tr>
 
-      <th scope="col">customer id</th>
+    <th scope="col">id</th>
+      <th scope="col">Spare name</th>
 
-   <th scope="col">devicename</th>
+   <th scope="col">Spare quantity</th>
 
- <th scope="col">device problem</th>
-
- <th scope="col">tachnician first name</th>
- <th scope="col">tachnician last name</th>
- <th scope="col">tachnician email</th>
- 
- <th scope="col">tachnician contact</th>
- 
- <th scope="col">date created</th>
-      
-    </tr>
+ </tr>
 
   </thead>
 
@@ -114,17 +110,10 @@ var id = 1;
    
       <td><%= id %></td>
 
-      <td><%= row.devicename %></td>
+      <td><%= row.sparename %></td>
 
-      <td><%= row.customercomment %></td>
+      <td><%= row.spare_quantity %></td>
 
-      <td><%= row.technicianfname %></td>
-      <td><%= row.technicianlname %></td>
-      <td><%= row.technicianemail%></td>
-      <td><%= row.techniciannumber%></td>
-      <td><%= row.datecreated%></td>
-      
-        
        </tr>
 
 <%  id++; }) }else{%>
@@ -145,6 +134,54 @@ var id = 1;
 		
 	<div class="clearfix"></div>
 </div>
+
+
+<script>
+
+//var name = new Array()
+let sparename = <%- sparename %>
+//const name2 = JSON.parse(name)
+let sparequantity = <%- sparequantity %>
+
+/*const labels = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+]; 
+*/
+ // === include 'setup' then 'config' above ===
+const data = {
+  labels: sparename,
+  datasets: [{
+    label: 'Table showing most used 30 spares',
+    backgroundColor: 'rgb(255, 99, 132)',
+    borderColor: 'rgb(255, 99, 132)',
+    //data: [0, 10, 5, 2, 20, 30, 45],
+  data: sparequantity ,
+  }]
+};
+
+
+const config = {
+  type: 'bar',
+  data,
+  options: {}
+};
+  
+
+
+  var myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+  
+
+  
+</script>
+
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
