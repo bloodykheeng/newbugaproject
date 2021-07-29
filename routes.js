@@ -178,6 +178,8 @@ router.get("/supervisorhome",controller.supervisorhome )
 
 router.get("/supervisorspares",controller.supervisorspares )
 
+router.get("/ranktechnician",controller.ranktechnician )
+
 
 
 module.exports= router

@@ -1,7 +1,7 @@
 <!Doctype HTML>
 <html>
 <head>
-	<title>supervisor spares</title>
+	<title>technician spares</title>
 	
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -26,6 +26,7 @@
   <a style="color:white;" href="supervisorspares"class="icon-a"><i class="fa fa-list icons"></i> &nbsp;&nbsp;Spares</a>
   
  <a href="ranktechnician"class="icon-a"><i class="fa fa-tasks icons"></i> &nbsp;&nbsp;Rank</a>
+  
   
   <!--
   <a href="#"class="icon-a"><i class="fa fa-shopping-bag icons"></i> &nbsp;&nbsp;Analytics</a>
@@ -77,59 +78,13 @@
 			<br/>
 
 <div>
-  <div style="color:white; display:flex;  justify-content:center; flex-direction:column;"><p>GRAPH SHOWING TOP 30 REQUESTED SPARES</p>
-  <p style="color:yellow;">x-axis : spare names</p>
-  <p style="color:yellow;">y-axis : spare quantity used</p>
+  <div style="color:white; display:flex;  justify-content:center; flex-direction:column;"><p>DOUGHNUT CHART  SHOWING TOP 10 MOST REPRODUCTIVE TECHNICIANS</p>
   </div>
   <canvas id="myChart" height="500px" width="500px"></canvas>
 </div>
 <br><br>
 
 
-
-
-<div  class="table-responsive">
- <table style="max-height:90%" class="table" style="white-space:nowrap;">
-  <caption>LIST OF SPARE USAGE</caption>
-  <thead class="thead-dark" >
-
-    <tr>
-
-    <th scope="col">id</th>
-      <th scope="col">Spare name</th>
-
-   <th scope="col">Spare quantity</th>
-
- </tr>
-
-  </thead>
-
-  <tbody>
-
-<% 
-
-if(rows.length > 0){  
-var id = 1;
-  rows.forEach( (row) => {
-%>
-    <tr>
-   
-      <td><%= id %></td>
-
-      <td><%= row.sparename %></td>
-
-      <td><%= row.spare_quantity %></td>
-
-       </tr>
-
-<%  id++; }) }else{%>
-<div> THERE IS NO DATA TO PRESENT</div>
-
- <% }%>
- 
-  </tbody>
-</table>
-</div>
 
 
 		</div>
@@ -142,51 +97,44 @@ var id = 1;
 </div>
 
 
+
 <script>
+  let technician = new Array()
+technician = <%- technician %>
 
-//var name = new Array()
-let sparename = <%- sparename %>
-//const name2 = JSON.parse(name)
-let sparequantity = <%- sparequantity %>
+let sales = <%- sales %>
 
-/*const labels = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-]; 
-*/
- // === include 'setup' then 'config' above ===
+  
+  
 const data = {
-  labels: sparename,
+  labels: technician,
   datasets: [{
-    label: 'Table showing most used 30 spares',
-    backgroundColor: 'rgb(255, 99, 132)',
-    borderColor: 'rgb(255, 99, 132)',
-    //data: [0, 10, 5, 2, 20, 30, 45],
-  data: sparequantity ,
+    label: 'DOUGHNUT CHART',
+    data: sales,
+    backgroundColor: [
+  '#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe'
+    ],
+    hoverOffset: 4
   }]
 };
 
 
+
 const config = {
-  type: 'bar',
-  data,
-  options: {}
+  type: 'doughnut',
+  data: data,
 };
   
-
-
-  var myChart = new Chart(
+  
+var myChart = new Chart(
     document.getElementById('myChart'),
     config
   );
   
-
-  
 </script>
+
+
+
 
 
 

@@ -8,7 +8,7 @@ const { v4 : uuidv4} = require("uuid")
   user     : "root",
   password : "",
   database : "bugatech"
-  */
+*/
   
 host : "172.30.72.177",
   user     : "root",
@@ -1220,6 +1220,58 @@ else{
 	const myrender = async ()=>{
 	  await loop()
 res.render("supervisorpages/spares",{ rows : rows , branchname:branchname, sparename: JSON.stringify(sparename), sparequantity:JSON.stringify(sparequantity) })
+}
+
+myrender()	
+	
+} })
+
+}}
+
+
+
+
+
+/* supervisor rank technician */
+
+  exports.ranktechnician = (req,res)=>{ 
+if(!req.session.supervisoruser){
+res.status(500).send()
+ }else{ 
+   console.log("supervisor rank technician working")
+   var branchname;
+
+
+
+var sql = 'select concat(technicians.technicianfname," ",technicians.technicianlname," from ",branches.branchname," branch") as technician , sum(devicetotalcharge.devicetotalcharge) as total_sales from technicians inner join branches on technicians.branchid = branches.branchid inner join devicetable  on devicetable.technicianid = technicians.technicianid inner join devicetotalcharge on devicetotalcharge.deviceid = devicetable.deviceid group by technician order by total_sales desc'
+
+connection.query(sql,(err,rows)=>{
+if(err){ console.log("failed to query database")}
+else{
+	//console.log(rows)
+	let  technician = new Array()
+	let technician_total_sales = new Array()
+	console.log("finished quering rank db")
+	const loop = ()=>{ 
+	  return new Promise((resolve,reject)=>{
+	rows.every(row =>{
+	  let x = 0; 
+	  if(x==10){
+	    return false;
+	      }else{
+	    resolve(technician.push(row.technician) , 
+	     technician_total_sales.push(row.total_sales) )
+	        return true;
+	      }
+	  x++
+	}) }	)}
+	
+	
+	const myrender = async ()=>{
+	  await loop()
+	 // console.log(technician)
+	 // console.log(technician_total_sales)
+res.render("supervisorpages/technician",{ rows : rows , branchname:branchname, technician : JSON.stringify(technician), sales:JSON.stringify(technician_total_sales) })
 }
 
 myrender()	
