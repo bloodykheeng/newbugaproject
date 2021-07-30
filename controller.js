@@ -1204,16 +1204,18 @@ else{
 	console.log("finished quering graph db")
 	const loop = ()=>{ 
 	  return new Promise((resolve,reject)=>{
+let x = 0; 
 	rows.every(row =>{
-	  let x = 0; 
-	  if(x==30){
-	    return false;
+	  //console.log(x)
+	  if(x==15){
+	   return false;
 	      }else{
 	    resolve(sparename.push(row.sparename) , 
 	     sparequantity.push(row.spare_quantity) )
-	        return true;
+ x++;
+  return true;
 	      }
-	  x++
+
 	}) }	)}
 	
 	
@@ -1254,16 +1256,17 @@ else{
 	console.log("finished quering rank db")
 	const loop = ()=>{ 
 	  return new Promise((resolve,reject)=>{
+let x = 0; 
 	rows.every(row =>{
-	  let x = 0; 
 	  if(x==10){
 	    return false;
 	      }else{
 	    resolve(technician.push(row.technician) , 
 	     technician_total_sales.push(row.total_sales) )
+        x++;
 	        return true;
 	      }
-	  x++
+	  
 	}) }	)}
 	
 	

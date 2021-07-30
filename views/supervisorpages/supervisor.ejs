@@ -88,7 +88,7 @@
 
       <th scope="col">customer id</th>
 
-   <th scope="col">devicename</th>
+   <th id="devicename" scope="col">devicename</th>
 
  <th scope="col">device problem</th>
 
@@ -98,7 +98,7 @@
  
  <th scope="col">tachnician contact</th>
  
- <th scope="col">date created</th>
+ <th id = "date" scope="col">date created</th>
       
     </tr>
 
@@ -148,6 +148,105 @@ var id = 1;
 	<div class="clearfix"></div>
 </div>
 
+
+
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+  let devicename = document.getElementById("devicename")
+  //let date = document.getElementById("date")
+// let column2 = "datecreated"
+
+let rows = <%-JSON.stringify(rows)%>
+
+let tbody = document.querySelector("tbody")
+  let desc = false
+  let datatype = typeof(rows[0].devicename)
+  
+  let column = "devicename"
+  
+  // sorting array 
+  
+  let sorter = (array,sortby,desc,datatype)=>{
+    if(datatype == "string"){
+      if(!desc){
+      array.sort((a,b)=>{
+  if(a[sortby] < b[sortby]) return -1
+  if(a[sortby] > b[sortby]) return 1
+  return 0  
+      })
+      }else{ 
+        array.reverse()
+      }
+    }else if(datatype == "number"){
+      if(!desc){
+      array.sort((a,b)=>a.sortby -b.sortby)
+      }else{ 
+        array.reverse()
+      }
+    }
+ return array
+  }
+  
+  //display items 
+  
+  let displayElements = (rows)=>{
+  
+tbody.innerHTML = ""
+   if(rows.length > 0){  
+var id = 1;
+  rows.forEach( (row) => {
+  
+tbody.innerHTML += `
+    <tr>
+   
+      <td>  ${id} </td>
+
+      <td>${ row.devicename }</td>
+
+      <td>${ row.customercomment }</td>
+
+      <td>${ row.technicianfname }</td>
+      <td>${ row.technicianlname }</td>
+      <td>${ row.technicianemail}</td>
+      <td>${ row.techniciannumber}</td>
+      <td>${ row.datecreated}</td>
+      
+        
+       </tr> `
+
+id++; }) }else{ 
+tbody.innerHTML += `
+<div> THERE IS NO DATA TO PRESENT</div>`
+
+ }  
+ 
+} 
+  
+  /*  event listener */
+  //devicename sort
+  devicename.addEventListener("click",()=>{
+    //alert("im clicked")
+    // console.log(rows)
+  let newarray = sorter(rows,column,desc,datatype)
+displayElements(newarray)
+desc = !desc
+  }) 
+  
+  // date sort
+/*date.addEventListener("click",()=>{
+    alert("im clicked")
+     console.log(rows)
+  let newarray = sorter(rows,column2,desc,datatype)
+displayElements(newarray)
+desc = !desc
+  }) */
+  
+})
+</script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
