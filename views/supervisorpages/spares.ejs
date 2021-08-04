@@ -11,8 +11,15 @@
 	<link rel="stylesheet" href="css/style.css" type="text/css"/>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 	
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  #code{
+      transform: rotate(90deg);
+    }
+	</style>
 	</head>
 
 
@@ -96,9 +103,9 @@
     <tr>
 
     <th scope="col">id</th>
-      <th id="sparename" scope="col">Spare name</th>
+ <th id="sparename" scope="col">Spare name <span id="code" class="material-icons">code</span></th>
 
-   <th id="sparequantity" scope="col">Spare quantity</th>
+   <th id="sparequantity" scope="col">Spare quantity <span id="code" class="material-icons">code</span></th>
 
  </tr>
 
@@ -289,6 +296,16 @@ tbody.innerHTML += `
     //alert("im clicked")
     // console.log(rows)
   let newarray = sorter(rows,column,desc,datatype)
+
+if(!desc){
+  sparename.innerHTML = `Spare name <span class="material-icons">
+expand_more
+</span>`
+}else{
+sparename.innerHTML = `Spare name <span class="material-icons">
+expand_less
+</span>`
+}
 displayElements(newarray)
 desc = !desc
   }) 
@@ -299,9 +316,21 @@ sparequantity.addEventListener("click",()=>{
     //alert("im clicked")
     // console.log(rows)
   let newarray = sorter(rows,column2,desc2,datatype2)
+
+if(!desc2){
+//sparequantity.innerHTML = ""
+  sparequantity.innerHTML = `Spare quantity<span class="material-icons">
+expand_more
+</span>`
+}else{
+//sparequantity.innerHTML = ""
+sparequantity.innerHTML = `Spare quantity<span class="material-icons">
+expand_less
+</span>`
+}
 displayElements(newarray)
 desc2 = !desc2
-  }) 
+ }) 
   
   
 })

@@ -11,6 +11,12 @@
 	<link rel="stylesheet" href="css/style.css" type="text/css"/>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	
+   <style>
+    #code{
+      transform: rotate(90deg);
+    }
+    </style>
+	
 	
 	</head>
 
@@ -88,7 +94,9 @@
 
       <th scope="col">customer id</th>
 
-   <th id="devicename" scope="col">devicename</th>
+   <th id="devicename" scope="col">Device name <span id="code" class="material-icons">
+code
+</span></th>
 
  <th scope="col">device problem</th>
 
@@ -232,7 +240,17 @@ tbody.innerHTML += `
     //alert("im clicked")
     // console.log(rows)
   let newarray = sorter(rows,column,desc,datatype)
+if(!desc){
+  devicename.innerHTML = `Device name <span class="material-icons">
+expand_more
+</span>`
+}else{
+devicename.innerHTML = `Device name <span class="material-icons">
+expand_less
+</span>`
+}
 displayElements(newarray)
+
 desc = !desc
   }) 
   
