@@ -3,18 +3,21 @@
 const { v4 : uuidv4} = require("uuid")
  const connection = 
   mysql.createConnection({
-    /*
+    
+      /*
   host : "localhost",
   user     : "root",
   password : "",
   database : "bugatech"
-*/
   
-host : "172.30.72.177",
-  user     : "root",
-  password : "1234",
-  database : "bugatech"
+   
+host : "172.30.72.177"
+*/
 
+  host:"10.129.3.67",
+  user     : "root",
+  password : "",
+  database : "bugatech"
   
 })
 
