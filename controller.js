@@ -14,7 +14,7 @@ const { v4 : uuidv4} = require("uuid")
 host : "172.30.72.177"
 */
 
-  host:"10.128.3.100",
+  host:"172.30.228.222",
   user     : "root",
   password : "",
   database : "bugatech"
