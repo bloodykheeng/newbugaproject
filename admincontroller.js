@@ -14,7 +14,7 @@ host : "172.30.72.177"
 
   host: "172.30.228.22",
   user     : "root",
-  password : "123",
+  password : "1234",
   database : "bugatech"
 
   })
